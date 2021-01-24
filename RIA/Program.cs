@@ -19,13 +19,13 @@ namespace RIA
 
             var Page = new List<Variables.ParseInfo>();
 
-            Console.WriteLine("Enter your link to ria.ru");
+            //Console.WriteLine("Enter your link to ria.ru");
 
-            var html = Console.ReadLine();
+            var html = @"https://ria.ru/20210124/sirota-1594173848.html"/*Console.ReadLine()*/;
 
-            Console.WriteLine("Enter the path to the directory");
+            //Console.WriteLine("Enter the path to the directory");
 
-            var path = Console.ReadLine();
+            var path = @"D:\C#"/*Console.ReadLine()*/;
 
             HtmlWeb web = new HtmlWeb();
 
@@ -55,13 +55,15 @@ namespace RIA
             string TEXT="";
             var pos = -1;
             int i = 0;
-            while (i<text.Count)
+            if (text != null)
             {
-                TEXT = TEXT.Insert(pos+1, text[i].InnerText + " \n");
-                pos = TEXT.LastIndexOf("\n");
-                i += 1;
+                while (i < text.Count)
+                {
+                    TEXT = TEXT.Insert(pos + 1, text[i].InnerText + " \n");
+                    pos = TEXT.LastIndexOf("\n");
+                    i += 1;
+                }
             }
-
             Console.WriteLine(TEXT);
 
             var link = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
@@ -69,13 +71,15 @@ namespace RIA
             string LINK = "";
             pos = -1;
             int k = 0;
-            while (k < link.Count)
+            if (link != null)
             {
-                LINK = LINK.Insert(pos + 1, link[k].Attributes["href"].Value + " " + "text: " + link[k].InnerText + " \n");
-                pos = LINK.LastIndexOf("\n");
-                k += 1;
+                while (k < link.Count)
+                {
+                    LINK = LINK.Insert(pos + 1, link[k].Attributes["href"].Value + " " + "text: " + link[k].InnerText + " \n");
+                    pos = LINK.LastIndexOf("\n");
+                    k += 1;
+                }
             }
-
             Console.WriteLine(LINK);
 
             Page.Add(new Variables.ParseInfo()
@@ -87,20 +91,33 @@ namespace RIA
                 Link = LINK
             }) ;
 
-            var img = htmlDoc.DocumentNode.SelectNodes("//img[@media-type='ar16x9a']");
+            var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
+
+            //var c = 0;
+            //if (img != null)
+            //{
+            //    while (c < img.Count)
+            //{
+            //    Console.WriteLine(img[c].OuterHtml);
+            //    c += 1;
+            //}
+            //}
 
             var filename = article.InnerText.Substring(0, l).Replace('"', ' ').Trim();
 
             int j = 0;
-            while (j < img.Count)
+            if(img != null)
             {
+                while (j < img.Count)
+                {
                 using (WebClient client = new WebClient())
                 {
-                    client.DownloadFile(new Uri(img[j].Attributes["src"].Value), path+"/"+ filename +".jpg");
+                    client.DownloadFile(new Uri(img[j].Attributes["src"].Value), path+"/"+ filename + j +".jpg");
                 }
                 j += 1;
+                }
             }
-
+            
             Console.WriteLine("Image uploaded");
 
             string json = JsonConvert.SerializeObject(Page, Newtonsoft.Json.Formatting.Indented,
