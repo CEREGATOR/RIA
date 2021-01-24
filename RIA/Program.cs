@@ -19,13 +19,13 @@ namespace RIA
 
             var Page = new List<Variables.ParseInfo>();
 
-            //Console.WriteLine("Enter your link to ria.ru");
+            Console.WriteLine("Enter your link to ria.ru");
 
-            var html = @"https://ria.ru/20210124/sirota-1594173848.html"/*Console.ReadLine()*/;
+            var html = Console.ReadLine();
 
-            //Console.WriteLine("Enter the path to the directory");
+            Console.WriteLine("Enter the path to the directory");
 
-            var path = @"D:\C#"/*Console.ReadLine()*/;
+            var path = Console.ReadLine();
 
             HtmlWeb web = new HtmlWeb();
 
@@ -92,16 +92,6 @@ namespace RIA
             }) ;
 
             var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
-
-            //var c = 0;
-            //if (img != null)
-            //{
-            //    while (c < img.Count)
-            //{
-            //    Console.WriteLine(img[c].OuterHtml);
-            //    c += 1;
-            //}
-            //}
 
             var filename = article.InnerText.Substring(0, l).Replace('"', ' ').Trim();
 
