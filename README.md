@@ -1,4 +1,4 @@
-# RIV
+# RIA
 
 c # program (.net462 or higher / .netcore3.1), which accepts as input a link to the news on the https://ria.ru/ resource and the path to the directory where the output file should be saved.
 
