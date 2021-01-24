@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cLNUFzqfjW22vlHhrwN74/EvyumWSyXpzicYEb4wTLyaN5D89HR9zNU/4K0nTmUfQdAP91H8oK9TaLAYCnoAAQ==",
+  "success": true,
+  "projectFilePath": "D:\\C#\\RIA\\RIA\\RIA.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Cereg\\.nuget\\packages\\htmlagilitypack\\1.11.29\\htmlagilitypack.1.11.29.nupkg.sha512"
+  ],
+  "logs": []
+}
