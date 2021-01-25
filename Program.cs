@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
+using System.Globalization;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 
@@ -15,8 +16,6 @@ namespace RIA
         {
             while (true)
             {
-                var Page = new List<ParseInfo>();
-
                 Console.WriteLine("Enter your link to ria.ru:");
                 var html = Console.ReadLine();
                 Console.WriteLine();
@@ -26,106 +25,167 @@ namespace RIA
                 Console.WriteLine("The program is running, please wait");
                 Console.WriteLine();
 
-                HtmlWeb web = new HtmlWeb();
-                var htmlDoc = new HtmlDocument();
-                htmlDoc = web.Load(html);
+                var htmlDoc = GetHtmlFile(html);
 
-                var article = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='article__title']");
-                int fileNameLength = article.InnerText.Length;
-                if (fileNameLength > 70)
-                {
-                    fileNameLength = 70;
-                }
-
-                var date = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']/a");
-                var date_update = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='article__info-date-modified']");
-                var text = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__block'][@data-type='text']");
-
-                string TEXT = "";
-                var pos = -1;
-                int text_amount = 0;
-                if (text != null)
-                {
-                    while (text_amount < text.Count)
-                    {
-                        TEXT = TEXT.Insert(pos + 1, text[text_amount].InnerText + Environment.NewLine);
-                        pos = TEXT.LastIndexOf(Environment.NewLine);
-                        text_amount += 1;
-                    }
-                }
-
-                var link = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
-                string LINK = "";
-                pos = -1;
-                int link_amount = 0;
-                if (link != null)
-                {
-                    while (link_amount < link.Count)
-                    {
-                        LINK = LINK.Insert(pos + 1, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
-                        pos = LINK.LastIndexOf(Environment.NewLine);
-                        link_amount += 1;
-                    }
-                }
-
-                var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
-                string image64 = "";
-                pos = -1;
-                var img_amount = 0;
-                if (img != null)
-                {
-                    while (img_amount < img.Count)
-                    {
-                        image64 = image64.Insert(pos + 1, ConvertImageURLToBase64(img[img_amount].Attributes["src"].Value) + Environment.NewLine);
-                        pos = TEXT.LastIndexOf(Environment.NewLine);
-                        img_amount += 1;
-                    }
-                }
-
-                if ((article != null) && (date != null) && (date_update != null))
-                {
-                    Page.Add(new ParseInfo()
-                    {
-                        Article = article.InnerText.Trim(),
-                        Date = DateTime.ParseExact(date.InnerText, "HH:mm dd.MM.yyyy",
-                                      System.Globalization.CultureInfo.InvariantCulture),
-                        DateUpdate = DateTime.ParseExact(date_update.InnerText.Replace('(', ' ').Replace(')', ' ').Replace("обновлено:", " ").Trim(), "HH:mm dd.MM.yyyy",
-                                      System.Globalization.CultureInfo.InvariantCulture),
-                        Text = TEXT,
-                        Link = LINK,
-                        ImageBase64 = image64
-                    });
-                }
-
-                var filename = article.InnerText.Substring(0, fileNameLength);
-                filename = MakeValidFileName(filename);
-                path = MakeValidPath(path);
-
-                int j = 0;
-                if (img != null)
-                {
-                    while (j < img.Count)
-                    {
-                        using (WebClient client = new WebClient())
-                        {
-                            client.DownloadFile(new Uri(img[j].Attributes["src"].Value), Path.Combine(path, filename + j + ".jpg"));
-                        }
-                        j += 1;
-                    }
-                }
-
+                ParseImage(htmlDoc, path, FileName(htmlDoc));
                 Console.WriteLine("Image uploaded");
 
-                string json = JsonConvert.SerializeObject(Page, Formatting.Indented,
-                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-                File.WriteAllText(Path.Combine(path, filename + ".json"), json);
-
+                SaveJson(AddList(htmlDoc), path, FileName(htmlDoc));
                 Console.WriteLine("Json file create");
 
-                Console.WriteLine(Environment.NewLine + "Press Y to continue or N to close" + Environment.NewLine);
+                Console.WriteLine("Press Y to continue or N to close: ");
                 if (Console.ReadKey(true).Key != ConsoleKey.Y)
                     break;
             }
+        }
+
+        public static HtmlDocument GetHtmlFile(string html)
+        {
+            HtmlWeb web = new HtmlWeb();
+            var htmlDoc = new HtmlDocument();
+            htmlDoc = web.Load(html);
+
+            return htmlDoc;
+        }
+        public static string ParseArticle(HtmlDocument htmlDoc)
+        {
+            var article = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='article__title']");
+
+            if (article != null)
+                return article.InnerText;
+            else
+                return "";
+        }
+        public static DateTime? ParseDate(HtmlDocument htmlDoc)
+        {
+            var date = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']/a");
+            DateTime? Date;
+
+            if (date != null)
+            {
+                Date = DateTime.ParseExact(date.InnerText.Trim(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
+            }
+            else
+                Date = null;
+
+            return Date;
+        }
+        public static DateTime? ParseDateUpdate(HtmlDocument htmlDoc)
+        {
+            var date_update = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='article__info-date-modified']");
+            DateTime? DateUpdate;
+
+            if (date_update != null)
+            {
+                DateUpdate = DateTime.ParseExact(date_update.InnerText.Replace('(', ' ').Replace(')', ' ').Replace("обновлено:", " ").Trim(), "HH:mm dd.MM.yyyy",CultureInfo.InvariantCulture);
+            }
+            else
+                DateUpdate = null;
+
+            return DateUpdate;
+        }
+        public static string ParseText(HtmlDocument htmlDoc)
+        {
+            var text = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__block'][@data-type='text']");
+
+            string Text = "";
+            var pos = -1;
+            int text_amount = 0;
+            if (text != null)
+            {
+                while (text_amount < text.Count)
+                {
+                    Text = Text.Insert(pos + 1, text[text_amount].InnerText + Environment.NewLine);
+                    pos = Text.LastIndexOf(Environment.NewLine);
+                    text_amount += 1;
+                }
+            }
+            if (text != null)
+                return Text;
+            else
+                return "";
+        }
+        public static string ParseLink(HtmlDocument htmlDoc)
+        {
+            var link = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
+            string Link = "";
+            var pos = -1;
+            int link_amount = 0;
+            if (link != null)
+            {
+                while (link_amount < link.Count)
+                {
+                    Link = Link.Insert(pos + 1, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
+                    pos = Link.LastIndexOf(Environment.NewLine);
+                    link_amount += 1;
+                }
+            }
+            return Link;
+        }
+        public static string ParseImageBase64(HtmlDocument htmlDoc)
+        {
+            var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
+            string ImageBase64 = "";
+            var pos = -1;
+            var img_amount = 0;
+            if (img != null)
+            {
+                while (img_amount < img.Count)
+                {
+                    ImageBase64 = ImageBase64.Insert(pos + 1, ConvertImageURLToBase64(img[img_amount].Attributes["src"].Value) + Environment.NewLine);
+                    pos = ImageBase64.LastIndexOf(Environment.NewLine);
+                    img_amount += 1;
+                }
+            }
+            return ImageBase64;
+        }
+        public static void ParseImage(HtmlDocument htmlDoc, string path, string filename)
+        {
+            var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
+            int j = 0;
+            if (img != null)
+            {
+                while (j < img.Count)
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.DownloadFile(new Uri(img[j].Attributes["src"].Value), Path.Combine(MakeValidPath(path), MakeValidFileName(filename) + j + ".jpg"));
+                    }
+                    j += 1;
+                }
+            }
+        }
+        public static List<ParseInfo> AddList(HtmlDocument htmlDoc)
+        {
+            List<ParseInfo> ParseInfo = new List<ParseInfo>();
+
+            ParseInfo.Add(new ParseInfo()
+            {
+                Article = ParseArticle(htmlDoc),
+                Date = ParseDate(htmlDoc),
+                DateUpdate = ParseDateUpdate(htmlDoc),
+                Text = ParseText(htmlDoc),
+                Link = ParseLink(htmlDoc),
+                ImageBase64 = ParseImageBase64(htmlDoc)
+            });
+
+            return ParseInfo;
+        }
+        public static string FileName(HtmlDocument htmlDoc)
+        {
+            int fileNameLength = ParseArticle(htmlDoc).Length;
+            if (fileNameLength > 70)
+            {
+                fileNameLength = 70;
+            }
+            var filename = ParseArticle(htmlDoc).Substring(0, fileNameLength);
+            return filename;
+        }
+        public static void SaveJson(List<ParseInfo> ParseInfo, string path, string filename)
+        {
+            string json = JsonConvert.SerializeObject(ParseInfo, Formatting.Indented,
+                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+            File.WriteAllText(Path.Combine(MakeValidPath(path), MakeValidFileName(filename) + ".json"), json);
         }
         public static string MakeValidFileName(string filename)
         {
@@ -153,7 +213,6 @@ namespace RIA
             }
             return builder.ToString();
         }
-
         public static String ConvertImageURLToBase64(String url)
         {
             StringBuilder _sb = new StringBuilder();
@@ -164,7 +223,6 @@ namespace RIA
 
             return _sb.ToString();
         }
-
         private static byte[] GetImage(string url)
         {
             Stream stream = null;
