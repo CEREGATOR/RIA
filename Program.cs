@@ -74,7 +74,7 @@ namespace RIA
         {
             var article = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='article__title']");
 
-            if (article != null)
+            if ((article != null) && (string.IsNullOrEmpty(article.InnerText) != true) && (string.IsNullOrWhiteSpace(article.InnerText) != true))
                 return article.InnerText;
             else
                 return String.Empty;
@@ -84,7 +84,7 @@ namespace RIA
             var date_html = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']/a");
             DateTime? Date;
 
-            if (date_html != null)
+            if ((date_html != null)&&((string.IsNullOrEmpty(date_html.InnerText) != true) && (string.IsNullOrWhiteSpace(date_html.InnerText) != true)))
             {
                 Date = DateTime.ParseExact(date_html.InnerText.Trim(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
@@ -100,7 +100,7 @@ namespace RIA
 
             string pattern = @"\W\b(обновлено)\b\W\s";
 
-            if (dateupdate_html != null)
+            if ((dateupdate_html != null) && ((string.IsNullOrEmpty(dateupdate_html.InnerText) != true) && (string.IsNullOrWhiteSpace(dateupdate_html.InnerText) != true)))
             {
                 DateUpdate = DateTime.ParseExact(Regex.Replace(dateupdate_html.InnerText, pattern, string.Empty).Replace(')', ' ').Trim(),
                     "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
@@ -113,15 +113,15 @@ namespace RIA
         public static String ParseText(HtmlDocument htmlDoc)
         {
             var text = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__block'][@data-type='text']");
-
             StringBuilder Text = new StringBuilder();
-            int text_amount = 0;
             if (text != null)
             {
-                while (text_amount < text.Count)
+                for (int text_amount = 0; text_amount < text.Count; text_amount++)
                 {
-                    Text.AppendJoin(Environment.NewLine, text[text_amount].InnerText);
-                    text_amount += 1;
+                    if ((string.IsNullOrEmpty(text[text_amount].InnerText) != true) && (string.IsNullOrWhiteSpace(text[text_amount].InnerText) != true))
+                    {
+                        Text.AppendJoin(Environment.NewLine, text[text_amount].InnerText);
+                    }
                 }
             }
             if (text != null)
@@ -133,13 +133,14 @@ namespace RIA
         {
             var link = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
             StringBuilder Link = new StringBuilder();
-            int link_amount = 0;
             if (link != null)
             {
-                while (link_amount < link.Count)
+                for (int link_amount = 0; link_amount < link.Count; link_amount++)
                 {
-                    Link.AppendJoin(Environment.NewLine, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
-                    link_amount += 1;
+                    if ((string.IsNullOrEmpty(link[link_amount].Attributes["href"].Value) != true) && (string.IsNullOrWhiteSpace(link[link_amount].Attributes["href"].Value) != true))
+                    {
+                        Link.AppendJoin(Environment.NewLine, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
+                    }
                 }
             }
             if (link != null)
@@ -174,17 +175,19 @@ namespace RIA
         public static List<string> ParseImageLink(HtmlDocument htmlDoc)
         {
             var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
-            var img_amount = 0;
-
             List<string> LinkList = new List<string>();
+
             if (img != null)
             {
-                while (img_amount < img.Count)
+                for (int img_amount = 0; img_amount < img.Count; img_amount++)
                 {
-                    LinkList.Add(img[img_amount].Attributes["src"].Value);
-                    img_amount += 1;
+                    if ((string.IsNullOrEmpty(img[img_amount].Attributes["src"].Value) != true) && (string.IsNullOrWhiteSpace(img[img_amount].Attributes["src"].Value) != true))
+                    {
+                        LinkList.Add(img[img_amount].Attributes["src"].Value);
+                    }
                 }
             }
+
             return LinkList;
         }
         public static string GetFileName(HtmlDocument htmlDoc)
