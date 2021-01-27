@@ -2,11 +2,14 @@
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.IO;
+using System.Net.Http;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using System.Globalization;
 using HtmlAgilityPack;
-using Newtonsoft.Json;
 
 namespace RIA
 {
@@ -17,7 +20,7 @@ namespace RIA
             while (true)
             {
                 Console.WriteLine("Enter your link to ria.ru:");
-                var html = Console.ReadLine();
+                var url = Console.ReadLine();
                 Console.WriteLine();
                 Console.WriteLine("Enter the path to the directory:");
                 var path = Console.ReadLine();
@@ -25,45 +28,65 @@ namespace RIA
                 Console.WriteLine("The program is running, please wait");
                 Console.WriteLine();
 
-                var htmlDoc = GetHtmlFile(html);
+                var htmlDoc = new HtmlDocument();
+                var request = (HttpWebRequest)WebRequest.Create(url);
 
-                ParseImage(htmlDoc, path, FileName(htmlDoc));
+                using (var response = request.GetResponse())
+                {
+                    using (var responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream == null)
+                            throw new Exception("что-то пошло не так");
+                        else
+                            htmlDoc.Load(responseStream);
+                    }
+                }
+
+                DownloadImage(ParseImageLink(htmlDoc), path, GetFileName(htmlDoc));
                 Console.WriteLine("Image uploaded");
 
-                SaveJson(AddList(htmlDoc), path, FileName(htmlDoc));
+                SaveJsonFile(htmlDoc, path, GetFileName(htmlDoc));
                 Console.WriteLine("Json file create");
+                Console.WriteLine();
 
                 Console.WriteLine("Press Y to continue or N to close: ");
+                Console.WriteLine();
                 if (Console.ReadKey(true).Key != ConsoleKey.Y)
                     break;
             }
         }
+        //public static Stream GetHtmlFile(string requestUriString)
+        //{
+        //    var request = (HttpWebRequest)WebRequest.Create(requestUriString);
 
-        public static HtmlDocument GetHtmlFile(string html)
-        {
-            HtmlWeb web = new HtmlWeb();
-            var htmlDoc = new HtmlDocument();
-            htmlDoc = web.Load(html);
-
-            return htmlDoc;
-        }
-        public static string ParseArticle(HtmlDocument htmlDoc)
+        //    using (var response = request.GetResponse())
+        //    {
+        //        using (var responseStream = response.GetResponseStream())
+        //        {
+        //            if (responseStream == null)
+        //                throw new Exception("что-то пошло не так");
+        //            else
+        //                return responseStream;
+        //        }
+        //    }
+        //}
+        public static String ParseArticle(HtmlDocument htmlDoc)
         {
             var article = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='article__title']");
 
             if (article != null)
                 return article.InnerText;
             else
-                return "";
+                return String.Empty;
         }
         public static DateTime? ParseDate(HtmlDocument htmlDoc)
         {
-            var date = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']/a");
+            var date_html = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']/a");
             DateTime? Date;
 
-            if (date != null)
+            if (date_html != null)
             {
-                Date = DateTime.ParseExact(date.InnerText.Trim(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
+                Date = DateTime.ParseExact(date_html.InnerText.Trim(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             else
                 Date = null;
@@ -72,106 +95,99 @@ namespace RIA
         }
         public static DateTime? ParseDateUpdate(HtmlDocument htmlDoc)
         {
-            var date_update = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='article__info-date-modified']");
+            var dateupdate_html = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='article__info-date-modified']");
             DateTime? DateUpdate;
 
-            if (date_update != null)
+            string pattern = @"\W\b(обновлено)\b\W\s";
+
+            if (dateupdate_html != null)
             {
-                DateUpdate = DateTime.ParseExact(date_update.InnerText.Replace('(', ' ').Replace(')', ' ').Replace("обновлено:", " ").Trim(), "HH:mm dd.MM.yyyy",CultureInfo.InvariantCulture);
+                DateUpdate = DateTime.ParseExact(Regex.Replace(dateupdate_html.InnerText, pattern, string.Empty).Replace(')', ' ').Trim(),
+                    "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
             }
             else
                 DateUpdate = null;
 
             return DateUpdate;
         }
-        public static string ParseText(HtmlDocument htmlDoc)
+        public static String ParseText(HtmlDocument htmlDoc)
         {
             var text = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__block'][@data-type='text']");
 
-            string Text = "";
-            var pos = -1;
+            StringBuilder Text = new StringBuilder();
             int text_amount = 0;
             if (text != null)
             {
                 while (text_amount < text.Count)
                 {
-                    Text = Text.Insert(pos + 1, text[text_amount].InnerText + Environment.NewLine);
-                    pos = Text.LastIndexOf(Environment.NewLine);
+                    Text.AppendJoin(Environment.NewLine, text[text_amount].InnerText);
                     text_amount += 1;
                 }
             }
             if (text != null)
-                return Text;
+                return Text.ToString();
             else
-                return "";
+                return String.Empty;
         }
-        public static string ParseLink(HtmlDocument htmlDoc)
+        public static String ParseLink(HtmlDocument htmlDoc)
         {
             var link = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
-            string Link = "";
-            var pos = -1;
+            StringBuilder Link = new StringBuilder();
             int link_amount = 0;
             if (link != null)
             {
                 while (link_amount < link.Count)
                 {
-                    Link = Link.Insert(pos + 1, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
-                    pos = Link.LastIndexOf(Environment.NewLine);
+                    Link.AppendJoin(Environment.NewLine, link[link_amount].Attributes["href"].Value + " " + "text: " + link[link_amount].InnerText + Environment.NewLine);
                     link_amount += 1;
                 }
             }
-            return Link;
+            if (link != null)
+                return Link.ToString();
+            else
+                return String.Empty;
         }
-        public static string ParseImageBase64(HtmlDocument htmlDoc)
+        public static void DownloadImage(List<string> LinkList, string path, string filename)
+        {
+            int img_amount = 0;
+            while (img_amount < LinkList.Count)
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(LinkList[img_amount]), Path.Combine(CleanString(path, Path.GetInvalidPathChars()),
+                        CleanString(filename, Path.GetInvalidFileNameChars()) + img_amount + ".jpg"));
+                }
+                img_amount += 1;
+            }
+        }
+        public static String ProcessDocumentImages(List<string> LinkList)
+        {
+            StringBuilder ImageBase64 = new StringBuilder();
+            int img_amount = 0;
+            while (img_amount < LinkList.Count)
+            {
+                ImageBase64.AppendJoin(Environment.NewLine, DownloadImageBase64(LinkList[img_amount]));
+                img_amount += 1;
+            }
+            return ImageBase64.ToString();
+        }
+        public static List<string> ParseImageLink(HtmlDocument htmlDoc)
         {
             var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
-            string ImageBase64 = "";
-            var pos = -1;
             var img_amount = 0;
+
+            List<string> LinkList = new List<string>();
             if (img != null)
             {
                 while (img_amount < img.Count)
                 {
-                    ImageBase64 = ImageBase64.Insert(pos + 1, ConvertImageURLToBase64(img[img_amount].Attributes["src"].Value) + Environment.NewLine);
-                    pos = ImageBase64.LastIndexOf(Environment.NewLine);
+                    LinkList.Add(img[img_amount].Attributes["src"].Value);
                     img_amount += 1;
                 }
             }
-            return ImageBase64;
+            return LinkList;
         }
-        public static void ParseImage(HtmlDocument htmlDoc, string path, string filename)
-        {
-            var img = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
-            int j = 0;
-            if (img != null)
-            {
-                while (j < img.Count)
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        client.DownloadFile(new Uri(img[j].Attributes["src"].Value), Path.Combine(MakeValidPath(path), MakeValidFileName(filename) + j + ".jpg"));
-                    }
-                    j += 1;
-                }
-            }
-        }
-        public static List<ParseInfo> AddList(HtmlDocument htmlDoc)
-        {
-            List<ParseInfo> ParseInfo = new List<ParseInfo>();
-
-            ParseInfo.Add(new ParseInfo()
-            {
-                Article = ParseArticle(htmlDoc),
-                Date = ParseDate(htmlDoc),
-                DateUpdate = ParseDateUpdate(htmlDoc),
-                Text = ParseText(htmlDoc),
-                Link = ParseLink(htmlDoc),
-                ImageBase64 = ParseImageBase64(htmlDoc)
-            });
-
-            return ParseInfo;
-        }
-        public static string FileName(HtmlDocument htmlDoc)
+        public static string GetFileName(HtmlDocument htmlDoc)
         {
             int fileNameLength = ParseArticle(htmlDoc).Length;
             if (fileNameLength > 70)
@@ -181,74 +197,66 @@ namespace RIA
             var filename = ParseArticle(htmlDoc).Substring(0, fileNameLength);
             return filename;
         }
-        public static void SaveJson(List<ParseInfo> ParseInfo, string path, string filename)
+        public static void SaveJsonFile(HtmlDocument htmlDoc, string path, string filename)
         {
-            string json = JsonConvert.SerializeObject(ParseInfo, Formatting.Indented,
-                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-            File.WriteAllText(Path.Combine(MakeValidPath(path), MakeValidFileName(filename) + ".json"), json);
+            ParseInfo parseInfo =
+            new ParseInfo()
+            {
+                Article = ParseArticle(htmlDoc),
+                Date = ParseDate(htmlDoc),
+                DateUpdate = ParseDateUpdate(htmlDoc),
+                Text = ParseText(htmlDoc),
+                Link = ParseLink(htmlDoc),
+                ImageBase64 = ProcessDocumentImages(ParseImageLink(htmlDoc))
+            };
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true
+            };
+            string json = JsonSerializer.Serialize(parseInfo, options);
+            File.WriteAllText(Path.Combine(CleanString(path, Path.GetInvalidPathChars()), CleanString(filename, Path.GetInvalidFileNameChars()) + ".json"), json);
         }
-        public static string MakeValidFileName(string filename)
+        public static string CleanString(string input, char[] invalidChars)
         {
             var builder = new StringBuilder();
-            var invalid = Path.GetInvalidFileNameChars();
-            foreach (var cur in filename)
+            foreach (var cur in input)
             {
-                if (!invalid.Contains(cur))
+                if (!invalidChars.Contains(cur))
                 {
                     builder.Append(cur);
                 }
             }
+
             return builder.ToString();
         }
-        public static string MakeValidPath(string path)
+        public static String DownloadImageBase64(String url)
         {
-            var builder = new StringBuilder();
-            var invalid = Path.GetInvalidPathChars();
-            foreach (var cur in path)
-            {
-                if (!invalid.Contains(cur))
-                {
-                    builder.Append(cur);
-                }
-            }
-            return builder.ToString();
-        }
-        public static String ConvertImageURLToBase64(String url)
-        {
-            StringBuilder _sb = new StringBuilder();
-
-            Byte[] _byte = GetImage(url);
-
-            _sb.Append(Convert.ToBase64String(_byte, 0, _byte.Length));
-
-            return _sb.ToString();
+            byte[] bytes = GetImage(url);
+            return Convert.ToBase64String(bytes);
         }
         private static byte[] GetImage(string url)
         {
-            Stream stream = null;
             byte[] buf;
             try
             {
-                WebProxy myProxy = new WebProxy();
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
 
-                HttpWebResponse response = (HttpWebResponse)req.GetResponse();
-                stream = response.GetResponseStream();
-
+                using (var response = req.GetResponse())
+                using (var stream = response.GetResponseStream())
                 using (BinaryReader br = new BinaryReader(stream))
                 {
                     int len = (int)(response.ContentLength);
                     buf = br.ReadBytes(len);
                     br.Close();
                 }
-                stream.Close();
-                response.Close();
             }
-            catch (Exception exp)
+            catch (Exception ex)
             {
-                buf = null;
+                throw new Exception($"Failed to collect image from link {url}", ex);
             }
-            return (buf);
+
+            return buf;
         }
     }
 }

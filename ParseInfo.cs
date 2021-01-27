@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RIA
 {
-    class ParseInfo
+    public class ParseInfo
     {
         public string Article { get; set; }
         public DateTime? Date { get; set; }
