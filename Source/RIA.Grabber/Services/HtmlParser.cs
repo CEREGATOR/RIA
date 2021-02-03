@@ -7,6 +7,7 @@
     using System.Text.RegularExpressions;
 
     using HtmlAgilityPack;
+    using HtmlAgilityPack.CssSelectors.NetCore;
 
     using RIA.Grabber.Model;
 
@@ -65,7 +66,8 @@
         /// <returns>Заголовок новости.</returns>
         private string GetPageArticle(HtmlDocument htmlDoc)
         {
-            var articleNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='endless__item m-active']//h1[@class='article__title']");
+            var parentNode = htmlDoc.QuerySelectorAll(".endless__item").First();
+            var articleNode = parentNode.QuerySelector("h1.article__title");
 
             return string.IsNullOrWhiteSpace(articleNode?.InnerText)
                 ? string.Empty
@@ -79,7 +81,8 @@
         /// <returns>Текст новости.</returns>
         private string GetPageText(HtmlDocument htmlDoc)
         {
-            var textNodes = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__block'][@data-type='text']");
+            var parentNode = htmlDoc.QuerySelectorAll(".endless__item").First();
+            var textNodes = parentNode.QuerySelectorAll(".article__text");
             if (textNodes == null)
                 return string.Empty;
 
@@ -94,14 +97,13 @@
         /// <returns>Текст новости.</returns>
         private (DateTime?, DateTime?) GetPageDates(HtmlDocument htmlDoc)
         {
-            var datesNode = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='article__info-date']");
+            var datesNode = htmlDoc.QuerySelector(".article__info-date");
             var datesRawText = datesNode?.InnerText;
             if (string.IsNullOrWhiteSpace(datesRawText))
                 return (null, null);
 
             var dateMatches = ExtractDateRegex.Matches(datesRawText);
-            return (ParseDateTimeRiaFormat(dateMatches[0].Value), dateMatches.Count == 2 ? ParseDateTimeRiaFormat(dateMatches[0].Value) : null);
-
+            return (ParseDateTimeRiaFormat(dateMatches[0].Value), dateMatches.Count == 2 ? ParseDateTimeRiaFormat(dateMatches[1].Value) : null);
         }
 
         /// <summary>
@@ -111,7 +113,8 @@
         /// <returns>Список ссылок из текста новости.</returns>
         private List<LinkWithDescription> GetInternalLinksFromText(HtmlDocument htmlDoc)
         {
-            var linkNodes = htmlDoc.DocumentNode.SelectNodes("//div[@class='article__text']/a");
+            var parentNode = htmlDoc.QuerySelectorAll(".endless__item").First();
+            var linkNodes = parentNode.QuerySelectorAll(".article__text a");
 
             return linkNodes
                 .Select(x => new LinkWithDescription { Url = x.Attributes["href"]?.Value, Description = x.InnerText })
@@ -126,7 +129,8 @@
         /// <returns>Список ссылок на изображения из новости.</returns>
         private List<string> GetImageLinks(HtmlDocument htmlDoc)
         {
-            var imageNodes = htmlDoc.DocumentNode.SelectNodes("//div[@class='media']//img");
+            var parentNode = htmlDoc.QuerySelectorAll(".endless__item").First();
+            var imageNodes = parentNode.QuerySelectorAll(".media img");
 
             return imageNodes == null
                 ? new List<string>()
