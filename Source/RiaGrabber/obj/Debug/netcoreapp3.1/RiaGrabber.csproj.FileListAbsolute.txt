@@ -1,9 +1,0 @@
-D:\C#\RiaGrabber\bin\Debug\netcoreapp3.1\RiaGrabber.deps.json
-D:\C#\RiaGrabber\bin\Debug\netcoreapp3.1\RiaGrabber.dll
-D:\C#\RiaGrabber\bin\Debug\netcoreapp3.1\RiaGrabber.pdb
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.csprojAssemblyReference.cache
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.AssemblyInfoInputs.cache
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.AssemblyInfo.cs
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.csproj.CoreCompileInputs.cache
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.dll
-D:\C#\RiaGrabber\obj\Debug\netcoreapp3.1\RiaGrabber.pdb
