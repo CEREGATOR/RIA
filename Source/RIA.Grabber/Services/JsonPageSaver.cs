@@ -36,7 +36,7 @@
             var cleanFileName = $"{CleanString(filename, Path.GetInvalidFileNameChars())}.json";
             filePath = Path.Combine(cleanDirPath, cleanFileName);
             File.WriteAllText(filePath, json);
-            Console.WriteLine("json file create");
+            Console.WriteLine("Json file create");
             Console.WriteLine();
         }
 
