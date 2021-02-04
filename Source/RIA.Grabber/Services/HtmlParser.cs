@@ -29,11 +29,6 @@
             ExtractDateRegex = new Regex("\\d{2}:\\d{2}\\s\\d{2}\\.\\d{2}\\.\\d{4}", RegexOptions.Singleline);
         }
 
-        public object Setup(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Разбирает модель новости из страницы.
         /// </summary>

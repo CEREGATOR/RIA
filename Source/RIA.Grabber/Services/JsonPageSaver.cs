@@ -1,5 +1,6 @@
 ﻿namespace RIA.Grabber.Services
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -9,12 +10,12 @@
     using RIA.Grabber.Model;
 
     /// <summary>
-    /// мне лень писать.
+    /// Класс по сохранинию стриницы ria в Json файл.
     /// </summary>
     public class JsonPageSaver : IPageSaver
     {
         /// <summary>
-        /// мне лень писать.
+        /// Размер ограничения длины названия json файла.
         /// </summary>
         private const int MaxFileNameLength = 70;
 
@@ -34,10 +35,12 @@
             var cleanFileName = $"{CleanString(filename, Path.GetInvalidFileNameChars())}.json";
             var filePath = Path.Combine(cleanDirPath, cleanFileName);
             File.WriteAllText(filePath, json);
+            Console.WriteLine("Json file create");
+            Console.WriteLine();
         }
 
         /// <summary>
-        /// мне лень писать.
+        /// Метод по добавлению модели страницы в json файл.
         /// </summary>
         /// <param name="pageModel"></param>
         /// <returns></returns>
@@ -54,7 +57,7 @@
         }
 
         /// <summary>
-        /// мне лень писать.
+        /// Очистка строки (пути дериктории или названия файла) от недопустимых символов.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="invalidChars"></param>

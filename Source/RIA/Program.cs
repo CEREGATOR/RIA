@@ -23,13 +23,8 @@ namespace RIA
                 Console.WriteLine("Enter the path to the directory:");
                 var path = Console.ReadLine();
                 Console.WriteLine();
-                Console.WriteLine("The program is running, please wait");
-                Console.WriteLine();
 
                 processor.ProcessPage(url, path);
-
-                Console.WriteLine("Json file create");
-                Console.WriteLine();
 
                 Console.WriteLine("Press Y to continue or N to close: ");
                 Console.WriteLine();

@@ -1,7 +1,7 @@
 ﻿namespace RIA.Grabber
 {
     using System;
-
+    using System.Text.RegularExpressions;
     using RIA.Grabber.Services;
 
     /// <summary>
@@ -10,22 +10,22 @@
     public class RiaPageProcessor
     {
         /// <summary>
-        /// мне лень писать.
+        /// Чтение данных из интернета.
         /// </summary>
         private readonly DataDownloader _downloader;
 
         /// <summary>
-        /// мне лень писать.
+        /// Чтение модели страницы ria.
         /// </summary>
         private readonly HtmlParser _parser;
 
         /// <summary>
-        /// мне лень писать.
+        /// Запись модели страницы ria.
         /// </summary>
         private readonly IPageSaver _saver;
 
         /// <summary>
-        /// мне лень писать.
+        /// Процессор по получению спарсенных данных из ria и их сохранению в файл
         /// </summary>
         /// <param name="downloader"></param>
         /// <param name="parser"></param>
@@ -37,6 +37,13 @@
             _saver = saver;
         }
 
+        private static readonly Regex CheckUrlRegex;
+
+        static RiaPageProcessor()
+        {
+            CheckUrlRegex = new Regex("\\w{3}.\\w{2}", RegexOptions.Singleline);
+        }
+
         /// <summary>
         /// Выполняет сбор новости.
         /// </summary>
@@ -45,17 +52,23 @@
         public void ProcessPage(string url, string saveDirPath)
         {
             //// TODO сделать проверку на валидность url.
+            var urlMathes = CheckUrlRegex.Matches(url);
+            var CheckUrl = urlMathes[0].Value;
 
-            var htmlCode = _downloader.DownloadPageHtml(url);
-            var pageModel = _parser.ParsePage(htmlCode);
-
-            foreach (var imgUrl in pageModel.ImageLinks)
+            if (string.IsNullOrWhiteSpace(url) || CheckUrl != "ria.ru")
+                Console.WriteLine("You entered an incorrect link"+Environment.NewLine);
+            else
             {
-                var downloadedByteArray = _downloader.DownloadByteArray(imgUrl);
-                pageModel.ImagesInBase64.Add(Convert.ToBase64String(downloadedByteArray));
-            }
+                var htmlCode = _downloader.DownloadPageHtml(url);
+                var pageModel = _parser.ParsePage(htmlCode);
 
-            _saver.SavePageModel(pageModel, saveDirPath);
+                foreach (var imgUrl in pageModel.ImageLinks)
+                {
+                    var downloadedByteArray = _downloader.DownloadByteArray(imgUrl);
+                    pageModel.ImagesInBase64.Add(Convert.ToBase64String(downloadedByteArray));
+                }
+                _saver.SavePageModel(pageModel, saveDirPath);
+            }
         }
     }
 }

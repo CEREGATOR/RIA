@@ -8,7 +8,7 @@
     public interface IPageSaver
     {
         /// <summary>
-        /// мне лень писать.
+        /// Cохрание модели страницы.
         /// </summary>
         /// <param name="pageModel"></param>
         /// <param name="dirPath"></param>
