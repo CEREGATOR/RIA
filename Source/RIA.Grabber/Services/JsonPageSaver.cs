@@ -18,6 +18,7 @@
         /// Размер ограничения длины названия json файла.
         /// </summary>
         private const int MaxFileNameLength = 70;
+        public string filePath;
 
         /// <inheritdoc />
         public void SavePageModel(PageModel pageModel, string dirPath)
@@ -33,7 +34,7 @@
                 : pageModel.Title.Substring(0, MaxFileNameLength);
 
             var cleanFileName = $"{CleanString(filename, Path.GetInvalidFileNameChars())}.json";
-            var filePath = Path.Combine(cleanDirPath, cleanFileName);
+            filePath = Path.Combine(cleanDirPath, cleanFileName);
             File.WriteAllText(filePath, json);
             Console.WriteLine("Json file create");
             Console.WriteLine();
