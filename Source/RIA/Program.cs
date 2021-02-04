@@ -26,10 +26,6 @@ namespace RIA
                 Console.WriteLine("The program is running, please wait");
                 Console.WriteLine();
 
-                //var htmlDoc = ParseHtml.ParseHtmlFile(url);
-                //Image.DownloadImage(LoadingData.ParseImageLink(htmlDoc), path, FileName.GetFileName(htmlDoc));
-                //SaveJson.SaveJsonFile(htmlDoc, path, FileName.GetFileName(htmlDoc));
-
                 processor.ProcessPage(url, path);
 
                 Console.WriteLine("Json file create");
