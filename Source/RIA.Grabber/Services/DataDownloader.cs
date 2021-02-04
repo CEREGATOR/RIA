@@ -21,7 +21,7 @@
         /// </summary>
         /// <param name="url">Адрес файла.</param>
         /// <returns>Массив байт, в который записан файл.</returns>
-        public byte[] DownloadByteArray(string url) => ProcessGetRequest(url, ReadStreamAsByteArray);
+        public static byte[] DownloadByteArray(string url) => ProcessGetRequest(url, ReadStreamAsByteArray);
 
         /// <summary>
         /// Выполняет HTTP GET запрос.
@@ -30,7 +30,7 @@
         /// <param name="url">Адрес.</param>
         /// <param name="read">Делегат, читающий ответ по запросу.</param>
         /// <returns>Считанный результат по запросу.</returns>
-        private TResult ProcessGetRequest<TResult>(string url, Func<Stream, TResult> read)
+        private static TResult ProcessGetRequest<TResult>(string url, Func<Stream, TResult> read)
         {
             try
             {
@@ -73,7 +73,7 @@
         /// </summary>
         /// <param name="stream">Поток.</param>
         /// <returns>Содержимое потока в виде массива байт.</returns>
-        private byte[] ReadStreamAsByteArray(Stream stream)
+        private static byte[] ReadStreamAsByteArray(Stream stream)
         {
             using (var ms = new MemoryStream())
             {

@@ -51,6 +51,12 @@
             model.LinksInText = GetInternalLinksFromText(htmlDoc);
             model.ImageLinks = GetImageLinks(htmlDoc);
 
+            foreach (var imgUrl in model.ImageLinks)
+            {
+                var downloadedByteArray = DataDownloader.DownloadByteArray(imgUrl);
+                model.ImagesInBase64.Add(Convert.ToBase64String(downloadedByteArray));
+            }
+
             return model;
         }
 

@@ -62,11 +62,6 @@
                 var htmlCode = _downloader.DownloadPageHtml(url);
                 var pageModel = _parser.ParsePage(htmlCode);
 
-                foreach (var imgUrl in pageModel.ImageLinks)
-                {
-                    var downloadedByteArray = _downloader.DownloadByteArray(imgUrl);
-                    pageModel.ImagesInBase64.Add(Convert.ToBase64String(downloadedByteArray));
-                }
                 _saver.SavePageModel(pageModel, saveDirPath);
             }
         }
