@@ -3,7 +3,6 @@ using RIA.Grabber;
 
 namespace RIA
 {
-    using RIA.Grabber.Old;
     using RIA.Grabber.Services;
 
     class Program
