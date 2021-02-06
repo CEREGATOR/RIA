@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
+
     using RIA.Grabber.Services;
 
     /// <summary>
@@ -10,38 +11,44 @@
     public class RiaPageProcessor
     {
         /// <summary>
-        /// Чтение данных из интернета.
+        /// Регулярное выражение определяющее валидность URL.
+        /// </summary>
+        private static readonly Regex CheckUrlRegex;
+
+        /// <summary>
+        /// Загрузчик данных из интернета.
         /// </summary>
         private readonly DataDownloader _downloader;
 
         /// <summary>
-        /// Чтение модели страницы ria.
+        /// Парсер HTML кода.
         /// </summary>
         private readonly HtmlParser _parser;
 
         /// <summary>
-        /// Запись модели страницы ria.
+        /// Интерфейс, предоставляющий метод сохранения модели страницы.
         /// </summary>
         private readonly IPageSaver _saver;
 
         /// <summary>
+        /// Инициализирует статические поля класса <see cref="RiaPageProcessor"/>.
+        /// </summary>
+        static RiaPageProcessor()
+        {
+            CheckUrlRegex = new Regex("https://ria\\.ru/\\d{8}/\\w+-\\d+\\.html$", RegexOptions.Singleline);
+        }
+
+        /// <summary>
         /// Процессор по получению спарсенных данных из ria и их сохранению в файл
         /// </summary>
-        /// <param name="downloader"></param>
-        /// <param name="parser"></param>
-        /// <param name="saver"></param>
+        /// <param name="downloader">Загрузчик данных из интернета.</param>
+        /// <param name="parser">Парсер HTML кода.</param>
+        /// <param name="saver">Интерфейс, предоставляющий метод сохранения модели страницы.</param>
         public RiaPageProcessor(DataDownloader downloader, HtmlParser parser, IPageSaver saver)
         {
             _downloader = downloader;
             _parser = parser;
             _saver = saver;
-        }
-
-        private static readonly Regex CheckUrlRegex;
-
-        static RiaPageProcessor()
-        {
-            CheckUrlRegex = new Regex("\\w{3}.\\w{2}", RegexOptions.Singleline);
         }
 
         /// <summary>
@@ -51,19 +58,13 @@
         /// <param name="saveDirPath">Путь к директории, куда сохраняется результат.</param>
         public void ProcessPage(string url, string saveDirPath)
         {
-            //// TODO сделать проверку на валидность url.
-            var urlMathes = CheckUrlRegex.Matches(url);
-            var CheckUrl = urlMathes[0].Value;
+            if (!CheckUrlRegex.IsMatch(url))
+                throw new Exception("URL не ведет на новость ria.ru.");
 
-            if (string.IsNullOrWhiteSpace(url) || CheckUrl != "ria.ru")
-                Console.WriteLine("You entered an incorrect link"+Environment.NewLine);
-            else
-            {
-                var htmlCode = _downloader.DownloadPageHtml(url);
-                var pageModel = _parser.ParsePage(htmlCode);
+            var htmlCode = _downloader.DownloadPageHtml(url);
+            var pageModel = _parser.ParsePage(htmlCode);
 
-                _saver.SavePageModel(pageModel, saveDirPath);
-            }
+            _saver.SavePageModel(pageModel, saveDirPath);
         }
     }
 }
