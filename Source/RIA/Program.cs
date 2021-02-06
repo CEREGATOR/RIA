@@ -16,17 +16,25 @@ namespace RIA
 
             while (true)
             {
-                Console.WriteLine("Enter your link to ria.ru:");
-                var url = Console.ReadLine();
-                Console.WriteLine();
-                Console.WriteLine("Enter the path to the directory:");
-                var path = Console.ReadLine();
-                Console.WriteLine();
+                try
+                {
+                    Console.WriteLine("Enter your link to ria.ru:");
+                    var url = Console.ReadLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Enter the path to the directory:");
+                    var path = Console.ReadLine();
+                    Console.WriteLine();
 
-                processor.ProcessPage(url, path);
+                    processor.ProcessPage(url, path);
 
-                Console.WriteLine("Press Y to continue or N to close: ");
-                Console.WriteLine();
+                    Console.WriteLine("Press Y to continue or N to close: ");
+                    Console.WriteLine();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
                 if (Console.ReadKey(true).Key != ConsoleKey.Y)
                     break;
             }
