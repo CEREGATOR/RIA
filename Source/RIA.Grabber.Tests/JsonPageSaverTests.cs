@@ -6,10 +6,8 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Net;
     using System.Reflection;
     using System.Text.Json;
-    using System.Text.RegularExpressions;
 
     [TestFixture]
     public class JsonPageSaverTests
@@ -40,13 +38,7 @@
                 new LinkWithDescription { Url = "http://ria.ru/organization_Vsemirnaja_organizacija_zdravookhranenija/", Description = "ВОЗ" },
                 new LinkWithDescription { Url = "http://ria.ru/organization_Organizacija_stran_proizvoditelejj_i_ehksporterov_nefti/", Description = "ОПЕК+" }
             };
-
-            var expImgLinks = new List<string>()
-            {
-                "https://cdn25.img.ria.ru/images/07e4/07/1c/1575062950_0:183:2815:1766_1920x0_80_0_0_dfd7a0d1fdebf8e965e5724d8ce41a1c.jpg"
-            };
-
-            var checkImageLinkRegex = new Regex("\\b\\w{3}.\\w{3}.\\w{2}\\b", RegexOptions.Singleline);
+            var expectedImagesCount = 1;
 
             var pageModel = parser.ParsePage(_html);
             json.SavePageModel(pageModel, _dirPath);
@@ -61,7 +53,7 @@
             Assert.AreEqual(expectedText, actual.Text);
             Assert.AreEqual(expectedPublicationDate, actual.PublicationDate);
             Assert.IsNull(actual.LastChangeDate);
-            
+
             Assert.AreEqual(expLinks.Count, actual.LinksInText.Count);
             for (var i = 0; i < expLinks.Count; i++)
             {
@@ -69,10 +61,11 @@
                 Assert.AreEqual(expLinks[i].Description, actual.LinksInText[i].Description);
             }
 
-            Assert.AreEqual(expImgLinks.Count, actual.ImageLinks.Count);
-            for (var i = 0; i < actual.ImageLinks.Count; i++)
+            Assert.AreEqual(expectedImagesCount, actual.ImageLinks.Count);
+            foreach (var link in actual.ImageLinks)
             {
-                Assert.AreEqual(checkImageLinkRegex.Matches(expImgLinks[i])[0].Value, checkImageLinkRegex.Matches(actual.ImageLinks[i])[0].Value);
+                Assert.That(link.Contains("img.ria.ru"));
+                Assert.That(link.EndsWith(".jpg"));
             }
         }
 
