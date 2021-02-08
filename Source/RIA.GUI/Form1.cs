@@ -5,6 +5,7 @@ using RIA.Grabber.Services;
 using RIA.Grabber.Model;
 using System.IO;
 using System.Text.Json;
+using System.Drawing;
 
 namespace RIA.GUI
 {
@@ -21,36 +22,12 @@ namespace RIA.GUI
         }
         private void ListJsonFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string filename = ListJsonFiles.GetItemText(ListJsonFiles.SelectedItem);
-            var jsonString = File.ReadAllText(Path.Combine(PathJson.Text, filename));
-            var pageModel = JsonSerializer.Deserialize<PageModel>(jsonString);
-
-            try
-            {
-                ViewPage.Clear();
-                ViewPage.AppendText(pageModel.Title + Environment.NewLine);
-                ViewPage.AppendText(pageModel.PublicationDate.ToString() + Environment.NewLine);
-                ViewPage.AppendText(pageModel.LastChangeDate.ToString() + Environment.NewLine);
-                ViewPage.AppendText(pageModel.Text + Environment.NewLine);
-                foreach(var textLink in pageModel.LinksInText)
-                {
-                    ViewPage.AppendText("Текст ссылки: " + textLink.Description + Environment.NewLine);
-                    ViewPage.AppendText("Cсылка: " + textLink.Url + Environment.NewLine);
-                }
-                foreach (var imgLink in pageModel.ImageLinks)
-                {
-                    ViewPage.AppendText("Cсылка на изображение: " + imgLink + Environment.NewLine);
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewPage.Text = ex.Message;
-            }
+            ViewJsonFiles();
         }
 
         private void PathJson_TextChanged(object sender, EventArgs e)
         {
-            ViewPage.Clear();
+            CleaningWorkArea();
             ListJsonFilesUpdate();
         }
 
@@ -68,7 +45,7 @@ namespace RIA.GUI
             }
             catch (Exception ex)
             {
-                ViewPage.Text = ex.Message;
+                TextPage.Text = ex.Message;
             }
         }
         private void StartUp()
@@ -86,13 +63,55 @@ namespace RIA.GUI
             }
             catch (Exception ex)
             {
-                ViewPage.Text = ex.Message;
+                TextPage.Text = ex.Message;
             }
         }
 
         private void Url_TextChanged(object sender, EventArgs e)
         {
-            ViewPage.Clear();
+            CleaningWorkArea();
+        }
+        private void CleaningWorkArea()
+        {
+            ImageInPage.Image = null;
+            UrlList.Items.Clear();
+            DescriptionList.Items.Clear();
+            TextPage.Clear();
+            Title.Clear();
+            PublicationDate.Clear();
+            LastChangeDate.Clear();
+        }
+        private void ViewJsonFiles()
+        {
+            string filename = ListJsonFiles.GetItemText(ListJsonFiles.SelectedItem);
+            var jsonString = File.ReadAllText(Path.Combine(PathJson.Text, filename));
+            var pageModel = JsonSerializer.Deserialize<PageModel>(jsonString);
+
+            try
+            {
+                CleaningWorkArea();
+
+                Title.AppendText(pageModel.Title);
+                PublicationDate.AppendText(pageModel.PublicationDate.ToString());
+                LastChangeDate.AppendText(pageModel.LastChangeDate.ToString());
+                TextPage.AppendText(pageModel.Text + Environment.NewLine);
+                foreach (var textLink in pageModel.LinksInText)
+                {
+                    UrlList.Items.Add(textLink.Url);
+                    DescriptionList.Items.Add(textLink.Description);
+                }
+                foreach (var imgLink in pageModel.ImageLinks)
+                {
+                    var byteArray = DataDownloader.DownloadByteArray(imgLink);
+                    MemoryStream memoryStream = new MemoryStream(byteArray);
+
+                    ImageInPage.Image = Image.FromStream(memoryStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                TextPage.Text = ex.Message;
+            }
         }
     }
 }
