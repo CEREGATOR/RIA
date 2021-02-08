@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RIA.Grabber\RIA.Grabber.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Text.Json">
+      <HintPath>..\..\..\RIA_repository\Build\Debug\AnyCPU\netcoreapp3.1\System.Text.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
