@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RIA.Grabber\RIA.Grabber.csproj" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Text.Json">
-      <HintPath>..\..\..\RIA_repository\Build\Debug\AnyCPU\netcoreapp3.1\System.Text.Json.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\RIA.Grabber\RIA.Grabber.csproj" />
   </ItemGroup>
 
 </Project>
