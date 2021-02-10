@@ -1,7 +1,7 @@
 ﻿
 namespace RIA.GUI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace RIA.GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ButtonParser = new System.Windows.Forms.Button();
@@ -43,128 +43,153 @@ namespace RIA.GUI
             this.ImageInPage = new System.Windows.Forms.PictureBox();
             this.UrlList = new System.Windows.Forms.ListBox();
             this.DescriptionList = new System.Windows.Forms.ListBox();
+            this.TitleLabel = new System.Windows.Forms.Label();
+            this.DatePublicationLabel = new System.Windows.Forms.Label();
+            this.LastChangeDateLabel = new System.Windows.Forms.Label();
+            this.ButtonNextPicture = new System.Windows.Forms.Button();
+            this.ButtonPreviousPicture = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ImageInPage)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 18);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Ссылка на статью ria.ru";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(76, 81);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 15);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Путь к папке с Json файлами";
             // 
             // ButtonParser
             // 
-            this.ButtonParser.Location = new System.Drawing.Point(118, 149);
+            resources.ApplyResources(this.ButtonParser, "ButtonParser");
             this.ButtonParser.Name = "ButtonParser";
-            this.ButtonParser.Size = new System.Drawing.Size(75, 23);
-            this.ButtonParser.TabIndex = 2;
-            this.ButtonParser.Text = "Старт";
             this.ButtonParser.UseVisualStyleBackColor = true;
             this.ButtonParser.Click += new System.EventHandler(this.ButtonParser_Click);
             // 
             // Url
             // 
-            this.Url.Location = new System.Drawing.Point(26, 36);
+            resources.ApplyResources(this.Url, "Url");
             this.Url.Name = "Url";
-            this.Url.Size = new System.Drawing.Size(259, 23);
-            this.Url.TabIndex = 3;
             this.Url.TextChanged += new System.EventHandler(this.Url_TextChanged);
             // 
             // PathJson
             // 
-            this.PathJson.Location = new System.Drawing.Point(26, 99);
+            resources.ApplyResources(this.PathJson, "PathJson");
             this.PathJson.Name = "PathJson";
-            this.PathJson.Size = new System.Drawing.Size(259, 23);
-            this.PathJson.TabIndex = 4;
             this.PathJson.TextChanged += new System.EventHandler(this.PathJson_TextChanged);
             // 
             // ListJsonFiles
             // 
             this.ListJsonFiles.FormattingEnabled = true;
-            this.ListJsonFiles.ItemHeight = 15;
-            this.ListJsonFiles.Location = new System.Drawing.Point(319, 30);
+            resources.ApplyResources(this.ListJsonFiles, "ListJsonFiles");
             this.ListJsonFiles.Name = "ListJsonFiles";
-            this.ListJsonFiles.Size = new System.Drawing.Size(448, 154);
-            this.ListJsonFiles.TabIndex = 5;
             this.ListJsonFiles.SelectedIndexChanged += new System.EventHandler(this.ListJsonFiles_SelectedIndexChanged);
             // 
             // TextPage
             // 
-            this.TextPage.Location = new System.Drawing.Point(12, 315);
+            resources.ApplyResources(this.TextPage, "TextPage");
             this.TextPage.Name = "TextPage";
             this.TextPage.ReadOnly = true;
-            this.TextPage.Size = new System.Drawing.Size(749, 394);
-            this.TextPage.TabIndex = 6;
-            this.TextPage.Text = "";
             // 
             // Title
             // 
-            this.Title.Location = new System.Drawing.Point(12, 207);
+            resources.ApplyResources(this.Title, "Title");
             this.Title.Name = "Title";
             this.Title.ReadOnly = true;
-            this.Title.Size = new System.Drawing.Size(698, 23);
-            this.Title.TabIndex = 7;
             // 
             // PublicationDate
             // 
-            this.PublicationDate.Location = new System.Drawing.Point(12, 247);
+            resources.ApplyResources(this.PublicationDate, "PublicationDate");
             this.PublicationDate.Name = "PublicationDate";
             this.PublicationDate.ReadOnly = true;
-            this.PublicationDate.Size = new System.Drawing.Size(106, 23);
-            this.PublicationDate.TabIndex = 8;
             // 
             // LastChangeDate
             // 
-            this.LastChangeDate.Location = new System.Drawing.Point(12, 286);
+            resources.ApplyResources(this.LastChangeDate, "LastChangeDate");
             this.LastChangeDate.Name = "LastChangeDate";
             this.LastChangeDate.ReadOnly = true;
-            this.LastChangeDate.Size = new System.Drawing.Size(106, 23);
-            this.LastChangeDate.TabIndex = 9;
             // 
             // ImageInPage
             // 
-            this.ImageInPage.Location = new System.Drawing.Point(780, 35);
+            resources.ApplyResources(this.ImageInPage, "ImageInPage");
             this.ImageInPage.Name = "ImageInPage";
-            this.ImageInPage.Size = new System.Drawing.Size(454, 273);
-            this.ImageInPage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ImageInPage.TabIndex = 10;
             this.ImageInPage.TabStop = false;
             // 
             // UrlList
             // 
             this.UrlList.FormattingEnabled = true;
-            this.UrlList.ItemHeight = 15;
-            this.UrlList.Location = new System.Drawing.Point(767, 314);
+            resources.ApplyResources(this.UrlList, "UrlList");
             this.UrlList.Name = "UrlList";
-            this.UrlList.Size = new System.Drawing.Size(242, 394);
-            this.UrlList.TabIndex = 11;
+            this.UrlList.SelectedIndexChanged += new System.EventHandler(this.UrlList_SelectedIndexChanged);
             // 
             // DescriptionList
             // 
             this.DescriptionList.FormattingEnabled = true;
-            this.DescriptionList.ItemHeight = 15;
-            this.DescriptionList.Location = new System.Drawing.Point(1015, 314);
+            resources.ApplyResources(this.DescriptionList, "DescriptionList");
             this.DescriptionList.Name = "DescriptionList";
-            this.DescriptionList.Size = new System.Drawing.Size(223, 394);
-            this.DescriptionList.TabIndex = 12;
+            this.DescriptionList.SelectedIndexChanged += new System.EventHandler(this.DescriptionList_SelectedIndexChanged);
             // 
-            // Form1
+            // TitleLabel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this.TitleLabel, "TitleLabel");
+            this.TitleLabel.Name = "TitleLabel";
+            // 
+            // DatePublicationLabel
+            // 
+            resources.ApplyResources(this.DatePublicationLabel, "DatePublicationLabel");
+            this.DatePublicationLabel.Name = "DatePublicationLabel";
+            // 
+            // LastChangeDateLabel
+            // 
+            resources.ApplyResources(this.LastChangeDateLabel, "LastChangeDateLabel");
+            this.LastChangeDateLabel.Name = "LastChangeDateLabel";
+            // 
+            // ButtonNextPicture
+            // 
+            resources.ApplyResources(this.ButtonNextPicture, "ButtonNextPicture");
+            this.ButtonNextPicture.Name = "ButtonNextPicture";
+            this.ButtonNextPicture.UseVisualStyleBackColor = true;
+            this.ButtonNextPicture.Click += new System.EventHandler(this.ButtonNextPicture_Click);
+            // 
+            // ButtonPreviousPicture
+            // 
+            resources.ApplyResources(this.ButtonPreviousPicture, "ButtonPreviousPicture");
+            this.ButtonPreviousPicture.Name = "ButtonPreviousPicture";
+            this.ButtonPreviousPicture.UseVisualStyleBackColor = true;
+            this.ButtonPreviousPicture.Click += new System.EventHandler(this.ButtonPreviousPicture_Click);
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // MainForm
+            // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1250, 721);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ButtonPreviousPicture);
+            this.Controls.Add(this.ButtonNextPicture);
+            this.Controls.Add(this.LastChangeDateLabel);
+            this.Controls.Add(this.DatePublicationLabel);
+            this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.DescriptionList);
             this.Controls.Add(this.UrlList);
             this.Controls.Add(this.ImageInPage);
@@ -178,9 +203,10 @@ namespace RIA.GUI
             this.Controls.Add(this.ButtonParser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
-            this.Text = "RIA";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "MainForm";
             ((System.ComponentModel.ISupportInitialize)(this.ImageInPage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -202,6 +228,18 @@ namespace RIA.GUI
         private System.Windows.Forms.PictureBox ImageInPage;
         private System.Windows.Forms.ListBox UrlList;
         private System.Windows.Forms.ListBox DescriptionList;
+        private System.Windows.Forms.Label PageTitle;
+        private System.Windows.Forms.Label DatePublicationPageLabel;
+        private System.Windows.Forms.Label LastChangeDateLabel;
+        private System.Windows.Forms.Label PageTitleLabel;
+        private System.Windows.Forms.Label LastChangeDatePage;
+        private System.Windows.Forms.Label TitleLabel;
+        private System.Windows.Forms.Label DatePublicationLabel;
+        private System.Windows.Forms.Button ButtonNextPicture;
+        private System.Windows.Forms.Button ButtonPreviousPicture;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 
