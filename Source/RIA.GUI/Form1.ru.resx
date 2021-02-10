@@ -57,524 +57,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Private.CoreLib" name="System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" />
-  <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
   <assembly alias="System.Drawing.Primitives" name="System.Drawing.Primitives, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>89, 18</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>136, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>0</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Ссылка на статью ria.ru</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>76, 81</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>166, 15</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>1</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Путь к папке с Json файлами</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="ButtonParser.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>118, 149</value>
-  </data>
-  <data name="ButtonParser.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="ButtonParser.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>2</value>
-  </data>
-  <data name="ButtonParser.Text" xml:space="preserve">
-    <value>Старт</value>
-  </data>
-  <data name="&gt;&gt;ButtonParser.Name" xml:space="preserve">
-    <value>ButtonParser</value>
-  </data>
-  <data name="&gt;&gt;ButtonParser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ButtonParser.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ButtonParser.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="Url.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>26, 36</value>
-  </data>
-  <data name="Url.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>259, 23</value>
-  </data>
-  <data name="Url.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;Url.Name" xml:space="preserve">
-    <value>Url</value>
-  </data>
-  <data name="&gt;&gt;Url.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Url.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Url.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="PathJson.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>26, 99</value>
-  </data>
-  <data name="PathJson.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>259, 23</value>
-  </data>
-  <data name="PathJson.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;PathJson.Name" xml:space="preserve">
-    <value>PathJson</value>
-  </data>
-  <data name="&gt;&gt;PathJson.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PathJson.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PathJson.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="ListJsonFiles.ItemHeight" type="System.Int32, System.Private.CoreLib">
-    <value>15</value>
-  </data>
-  <data name="ListJsonFiles.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>313, 36</value>
-  </data>
   <data name="ListJsonFiles.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>448, 154</value>
-  </data>
-  <data name="ListJsonFiles.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;ListJsonFiles.Name" xml:space="preserve">
-    <value>ListJsonFiles</value>
-  </data>
-  <data name="&gt;&gt;ListJsonFiles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ListJsonFiles.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ListJsonFiles.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="TextPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 315</value>
-  </data>
-  <data name="TextPage.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>749, 394</value>
-  </data>
-  <data name="TextPage.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>6</value>
-  </data>
-  <data name="TextPage.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;TextPage.Name" xml:space="preserve">
-    <value>TextPage</value>
-  </data>
-  <data name="&gt;&gt;TextPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TextPage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TextPage.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="Title.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 207</value>
-  </data>
-  <data name="Title.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>455, 23</value>
-  </data>
-  <data name="Title.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;Title.Name" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="&gt;&gt;Title.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Title.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;Title.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="PublicationDate.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 247</value>
-  </data>
-  <data name="PublicationDate.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>106, 23</value>
-  </data>
-  <data name="PublicationDate.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;PublicationDate.Name" xml:space="preserve">
-    <value>PublicationDate</value>
-  </data>
-  <data name="&gt;&gt;PublicationDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PublicationDate.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PublicationDate.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="LastChangeDate.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 286</value>
-  </data>
-  <data name="LastChangeDate.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>106, 23</value>
-  </data>
-  <data name="LastChangeDate.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDate.Name" xml:space="preserve">
-    <value>LastChangeDate</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDate.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDate.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>442, 154</value>
   </data>
   <data name="ImageInPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>767, 36</value>
+    <value>767, 30</value>
   </data>
   <data name="ImageInPage.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>471, 235</value>
+    <value>471, 240</value>
+  </data>
+  <assembly alias="System.Private.CoreLib" name="System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" />
+  <data name="TitleLabel.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ImageInPage.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="ImageInPage.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;ImageInPage.Name" xml:space="preserve">
-    <value>ImageInPage</value>
-  </data>
-  <data name="&gt;&gt;ImageInPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ImageInPage.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ImageInPage.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="UrlList.ItemHeight" type="System.Int32, System.Private.CoreLib">
-    <value>15</value>
-  </data>
-  <data name="UrlList.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>767, 344</value>
-  </data>
-  <data name="UrlList.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>242, 364</value>
-  </data>
-  <data name="UrlList.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;UrlList.Name" xml:space="preserve">
-    <value>UrlList</value>
-  </data>
-  <data name="&gt;&gt;UrlList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UrlList.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;UrlList.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="DescriptionList.ItemHeight" type="System.Int32, System.Private.CoreLib">
-    <value>15</value>
-  </data>
-  <data name="DescriptionList.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>1015, 344</value>
-  </data>
-  <data name="DescriptionList.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>223, 364</value>
-  </data>
-  <data name="DescriptionList.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;DescriptionList.Name" xml:space="preserve">
-    <value>DescriptionList</value>
-  </data>
-  <data name="&gt;&gt;DescriptionList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DescriptionList.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;DescriptionList.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="TitleLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>473, 210</value>
+  <data name="TitleLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="TitleLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>110, 20</value>
-  </data>
-  <data name="TitleLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>13</value>
+    <value>103, 15</value>
   </data>
   <data name="TitleLabel.Text" xml:space="preserve">
     <value>Заголовок статьи</value>
   </data>
-  <data name="&gt;&gt;TitleLabel.Name" xml:space="preserve">
-    <value>TitleLabel</value>
+  <data name="DatePublicationLabel.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;TitleLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TitleLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="DatePublicationLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>124, 250</value>
+  <data name="DatePublicationLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="DatePublicationLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>143, 20</value>
-  </data>
-  <data name="DatePublicationLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>14</value>
+    <value>140, 15</value>
   </data>
   <data name="DatePublicationLabel.Text" xml:space="preserve">
     <value>Дата публикации статьи</value>
   </data>
-  <data name="&gt;&gt;DatePublicationLabel.Name" xml:space="preserve">
-    <value>DatePublicationLabel</value>
+  <data name="LastChangeDateLabel.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;DatePublicationLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DatePublicationLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;DatePublicationLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="LastChangeDateLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>124, 289</value>
+  <data name="LastChangeDateLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="LastChangeDateLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>143, 20</value>
-  </data>
-  <data name="LastChangeDateLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>15</value>
+    <value>140, 15</value>
   </data>
   <data name="LastChangeDateLabel.Text" xml:space="preserve">
     <value>Дата обновления статьи</value>
   </data>
-  <data name="&gt;&gt;LastChangeDateLabel.Name" xml:space="preserve">
-    <value>LastChangeDateLabel</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDateLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDateLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;LastChangeDateLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="ButtonNextPicture.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>1101, 285</value>
+    <value>1066, 276</value>
   </data>
   <data name="ButtonNextPicture.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="ButtonNextPicture.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>16</value>
+    <value>83, 23</value>
   </data>
   <data name="ButtonNextPicture.Text" xml:space="preserve">
-    <value>--&gt;</value>
-  </data>
-  <data name="&gt;&gt;ButtonNextPicture.Name" xml:space="preserve">
-    <value>ButtonNextPicture</value>
-  </data>
-  <data name="&gt;&gt;ButtonNextPicture.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ButtonNextPicture.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ButtonNextPicture.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="ButtonPreviousPicture.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>848, 285</value>
+    <value>Следующее</value>
   </data>
   <data name="ButtonPreviousPicture.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>75, 23</value>
-  </data>
-  <data name="ButtonPreviousPicture.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>17</value>
+    <value>93, 24</value>
   </data>
   <data name="ButtonPreviousPicture.Text" xml:space="preserve">
-    <value>&lt;--</value>
-  </data>
-  <data name="&gt;&gt;ButtonPreviousPicture.Name" xml:space="preserve">
-    <value>ButtonPreviousPicture</value>
-  </data>
-  <data name="&gt;&gt;ButtonPreviousPicture.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ButtonPreviousPicture.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ButtonPreviousPicture.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>834, 318</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>102, 15</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>18</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Ссылка из статьи</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>1096, 315</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>80, 15</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>19</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Текст ссылки</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label5.AutoSize" type="System.Boolean, System.Private.CoreLib">
-    <value>True</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>952, 18</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>136, 15</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>20</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Изображения из статьи</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing.Primitives">
-    <value>7, 15</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>1250, 721</value>
+    <value>Предыдущее</value>
   </data>
   <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -4348,14 +3892,5 @@
         ///////8H/////////////////////////////////////////wf////////////////////////////
         /////////////B////////////////////8=
 </value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>RIA</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

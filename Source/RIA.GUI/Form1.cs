@@ -6,20 +6,28 @@ using RIA.Grabber.Model;
 using System.IO;
 using System.Text.Json;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace RIA.GUI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        private List<Image> ListImage = new List<Image>();
+        private int NumberPictures;
+        private PageModel pageModel = new PageModel();
+        private Image previousImage;
+
+        public MainForm()
         {
             InitializeComponent();
+            CleaningWorkArea();
         }
 
         private void ButtonParser_Click(object sender, EventArgs e)
         {
             StartUp();
         }
+
         private void ListJsonFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             ViewJsonFiles();
@@ -48,6 +56,7 @@ namespace RIA.GUI
                 TextPage.Text = ex.Message;
             }
         }
+
         private void StartUp()
         {
             try
@@ -71,6 +80,7 @@ namespace RIA.GUI
         {
             CleaningWorkArea();
         }
+
         private void CleaningWorkArea()
         {
             ImageInPage.Image = null;
@@ -80,12 +90,16 @@ namespace RIA.GUI
             Title.Clear();
             PublicationDate.Clear();
             LastChangeDate.Clear();
+            ListImage.Clear();
+            ButtonNextPicture.Enabled = false;
+            ButtonPreviousPicture.Enabled = false;
         }
+
         private void ViewJsonFiles()
         {
             string filename = ListJsonFiles.GetItemText(ListJsonFiles.SelectedItem);
             var jsonString = File.ReadAllText(Path.Combine(PathJson.Text, filename));
-            var pageModel = JsonSerializer.Deserialize<PageModel>(jsonString);
+            pageModel = JsonSerializer.Deserialize<PageModel>(jsonString);
 
             try
             {
@@ -100,18 +114,66 @@ namespace RIA.GUI
                     UrlList.Items.Add(textLink.Url);
                     DescriptionList.Items.Add(textLink.Description);
                 }
-                foreach (var imgLink in pageModel.ImageLinks)
+                foreach (var imgBase64 in pageModel.ImagesInBase64)
                 {
-                    var byteArray = DataDownloader.DownloadByteArray(imgLink);
+                    var byteArray = Convert.FromBase64String(imgBase64);
                     MemoryStream memoryStream = new MemoryStream(byteArray);
+                    previousImage = Image.FromStream(memoryStream);
+                    ListImage.Add(previousImage);
+                }
+                //previousImage?.Dispose(); //Dispose кращет последнее изображение
+                if (pageModel.ImagesInBase64.Count > 1)
+                {
+                    ButtonNextPicture.Enabled = true;
+                    ButtonPreviousPicture.Enabled = false;
 
-                    ImageInPage.Image = Image.FromStream(memoryStream);
+                    NumberPictures = 0;
+                    ImageInPage.Image = ListImage[NumberPictures];
+                }
+                if (pageModel.ImagesInBase64.Count == 1)
+                {
+                    NumberPictures = 0;
+                    ImageInPage.Image = ListImage[NumberPictures];
                 }
             }
             catch (Exception ex)
             {
                 TextPage.Text = ex.Message;
             }
+        }
+
+        private void UrlList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UrlList.ClearSelected();
+        }
+
+        private void DescriptionList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DescriptionList.ClearSelected();
+        }
+
+        private void ButtonNextPicture_Click(object sender, EventArgs e)
+        {
+            ButtonPreviousPicture.Enabled = true;
+            if (NumberPictures < ListImage.Count - 1)
+            {
+                NumberPictures++;
+                ImageInPage.Image = ListImage[NumberPictures];
+            }
+            if (NumberPictures == ListImage.Count - 1)
+                ButtonNextPicture.Enabled = false;
+        }
+
+        private void ButtonPreviousPicture_Click(object sender, EventArgs e)
+        {
+            ButtonNextPicture.Enabled = true;
+            if (NumberPictures > 0)
+            {
+                NumberPictures--;
+                ImageInPage.Image = ListImage[NumberPictures];
+            }
+            if (NumberPictures == 0)
+                ButtonPreviousPicture.Enabled = false;
         }
     }
 }
