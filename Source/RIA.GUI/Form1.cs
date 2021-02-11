@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.Json;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace RIA.GUI
 {
@@ -134,6 +135,11 @@ namespace RIA.GUI
                 {
                     NumberPictures = 0;
                     ImageInPage.Image = ListImage[NumberPictures];
+                }
+                if (pageModel.ImagesInBase64.Count == 0)
+                {
+                    ImageInPage.Image = Image.FromFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                        , "No images in page.png"));
                 }
             }
             catch (Exception ex)

@@ -14,4 +14,14 @@
     <ProjectReference Include="..\RIA.Grabber\RIA.Grabber.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="No images in page.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
