@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// Описывает модель страницы риа ру.
@@ -46,6 +47,7 @@
         /// <summary>
         /// Получает или задает список ссылок на изображения из новости.
         /// </summary>
+        [JsonIgnore]
         public List<string> ImageLinks { get; set; }
 
         /// <summary>
