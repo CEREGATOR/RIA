@@ -1,5 +1,4 @@
-﻿
-namespace RIA.GUI
+﻿namespace RIA.GUI
 {
     partial class MainForm
     {

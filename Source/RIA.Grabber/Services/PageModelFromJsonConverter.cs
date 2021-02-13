@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Text.Json;
-using RIA.Grabber;
 using RIA.Grabber.Model;
-using RIA.Grabber.Services;
 
-namespace RIA.GUI.Services
+namespace RIA.Grabber.Services
 {
-    public class GetPageModelFromJson
+    public class PageModelFromJsonConverter
     {
         public PageModel PageModelJson(string filename, string path)
         {

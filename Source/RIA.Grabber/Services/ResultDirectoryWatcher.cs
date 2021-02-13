@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
-namespace RIA.GUI.Services
+namespace RIA.Grabber.Services
 {
-    public class GetFileNameJson
+    public class ResultDirectoryWatcher
     {
         public string[] ListJsonFilesUpdate(string path)
         {
@@ -21,6 +18,7 @@ namespace RIA.GUI.Services
                 fileName[i] = fi.Name;
                 i++;
             }
+
             return fileName;
         }
     }
