@@ -114,7 +114,7 @@
     <value>19</value>
   </data>
   <data name="ButtonParser.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>118, 149</value>
+    <value>114, 128</value>
   </data>
   <data name="ButtonParser.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>75, 23</value>
@@ -186,7 +186,7 @@
     <value>313, 36</value>
   </data>
   <data name="ListJsonFiles.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>448, 154</value>
+    <value>448, 169</value>
   </data>
   <data name="ListJsonFiles.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>5</value>
@@ -204,10 +204,10 @@
     <value>15</value>
   </data>
   <data name="TextPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 315</value>
+    <value>12, 344</value>
   </data>
   <data name="TextPage.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>749, 394</value>
+    <value>749, 365</value>
   </data>
   <data name="TextPage.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>6</value>
@@ -228,7 +228,7 @@
     <value>14</value>
   </data>
   <data name="Title.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 207</value>
+    <value>12, 221</value>
   </data>
   <data name="Title.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>455, 23</value>
@@ -249,10 +249,10 @@
     <value>13</value>
   </data>
   <data name="PublicationDate.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 247</value>
+    <value>12, 270</value>
   </data>
   <data name="PublicationDate.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>106, 23</value>
+    <value>143, 23</value>
   </data>
   <data name="PublicationDate.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>8</value>
@@ -270,10 +270,10 @@
     <value>12</value>
   </data>
   <data name="LastChangeDate.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 286</value>
+    <value>12, 318</value>
   </data>
   <data name="LastChangeDate.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>106, 23</value>
+    <value>143, 23</value>
   </data>
   <data name="LastChangeDate.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>9</value>
@@ -364,10 +364,10 @@
     <value>8</value>
   </data>
   <data name="TitleLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>473, 210</value>
+    <value>12, 204</value>
   </data>
   <data name="TitleLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>110, 20</value>
+    <value>110, 14</value>
   </data>
   <data name="TitleLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>13</value>
@@ -388,10 +388,10 @@
     <value>7</value>
   </data>
   <data name="DatePublicationLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>124, 250</value>
+    <value>12, 251</value>
   </data>
   <data name="DatePublicationLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>143, 20</value>
+    <value>143, 16</value>
   </data>
   <data name="DatePublicationLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>14</value>
@@ -412,10 +412,10 @@
     <value>6</value>
   </data>
   <data name="LastChangeDateLabel.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>124, 289</value>
+    <value>12, 296</value>
   </data>
   <data name="LastChangeDateLabel.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>143, 20</value>
+    <value>143, 19</value>
   </data>
   <data name="LastChangeDateLabel.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>15</value>
@@ -436,7 +436,7 @@
     <value>5</value>
   </data>
   <data name="ButtonNextPicture.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>1101, 285</value>
+    <value>1101, 277</value>
   </data>
   <data name="ButtonNextPicture.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>75, 23</value>
@@ -460,7 +460,7 @@
     <value>4</value>
   </data>
   <data name="ButtonPreviousPicture.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>848, 285</value>
+    <value>849, 277</value>
   </data>
   <data name="ButtonPreviousPicture.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>75, 23</value>
@@ -487,7 +487,7 @@
     <value>True</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>834, 318</value>
+    <value>833, 326</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>102, 15</value>
@@ -517,7 +517,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>1096, 315</value>
+    <value>1096, 326</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>80, 15</value>
@@ -576,7 +576,7 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>1250, 721</value>
   </data>
-  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAANYAAAEAIADocgMAFgAAACgAAAAAAQAArAEAAAEAIAAAAAAAAFgDACMuAAAjLgAAAAAAAAAA
