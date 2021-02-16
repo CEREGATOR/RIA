@@ -3,7 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
 
-    using RIA.Grabber.Services;
+    using Services;
 
     /// <summary>
     /// Обеспечивает сбор новости с риа ру.

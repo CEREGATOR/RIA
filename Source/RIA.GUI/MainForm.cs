@@ -42,7 +42,7 @@ namespace RIA.GUI
             }
             catch(DirectoryNotFoundException)
             {
-                TextPage.Text = "В папке нет json файлов";
+                TextPage.Text = @"В папке нет json файлов";
             }
             catch (Exception ex)
             {
@@ -107,7 +107,7 @@ namespace RIA.GUI
 
         private void ViewJsonFiles()
         {
-            string filename = ListJsonFiles.GetItemText(ListJsonFiles.SelectedItem);
+            var filename = ListJsonFiles.GetItemText(ListJsonFiles.SelectedItem);
             var pageModel = _converter.PageModelJson(filename, PathJson.Text);
             try
             {
@@ -127,7 +127,7 @@ namespace RIA.GUI
                 foreach (var imgBase64 in pageModel.ImagesInBase64)
                 {
                     var byteArray = Convert.FromBase64String(imgBase64);
-                    MemoryStream memoryStream = new MemoryStream(byteArray);
+                    var memoryStream = new MemoryStream(byteArray);
                     var newImage = Image.FromStream(memoryStream);
                     _listImage.Add(newImage);
                 }
@@ -148,7 +148,7 @@ namespace RIA.GUI
                 else
                 {
                     var currentDirPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    ImageInPage.Image = Image.FromFile(Path.Combine(currentDirPath, "No images in page.png"));
+                    ImageInPage.Image = Image.FromFile(Path.Combine(currentDirPath ?? string.Empty, "No images in page.png"));
                 }
             }
             catch (Exception ex)
@@ -163,14 +163,14 @@ namespace RIA.GUI
             try
             {
                 var fileNameArray = _dirWatcher.ListJsonFilesUpdate(PathJson.Text);
-                foreach (string fi in fileNameArray)
+                foreach (var fi in fileNameArray)
                 {
                     ListJsonFiles.Items.Add(fi);
                 }
             }
             catch (DirectoryNotFoundException)
             {
-                TextPage.Text = "В папке нет json файлов";
+                TextPage.Text = @"В папке нет json файлов";
             }
         }
 

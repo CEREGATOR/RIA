@@ -1,8 +1,8 @@
 ﻿namespace RIA.Grabber.Tests
 {
     using NUnit.Framework;
-    using RIA.Grabber.Model;
-    using RIA.Grabber.Services;
+    using Model;
+    using Services;
     using System;
     using System.Collections.Generic;
 

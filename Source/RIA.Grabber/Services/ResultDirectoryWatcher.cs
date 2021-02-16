@@ -6,14 +6,14 @@ namespace RIA.Grabber.Services
     {
         public string[] ListJsonFilesUpdate(string path)
         {
-            DirectoryInfo dir = new DirectoryInfo(path);
+            var dir = new DirectoryInfo(path);
 
-            FileInfo[] files = dir.GetFiles("*.json");
+            var files = dir.GetFiles("*.json");
 
-            string[] fileName = new string[files.Length];
-            int i = 0;
+            var fileName = new string[files.Length];
+            var i = 0;
 
-            foreach (FileInfo fi in files)
+            foreach (var fi in files)
             {
                 fileName[i] = fi.Name;
                 i++;

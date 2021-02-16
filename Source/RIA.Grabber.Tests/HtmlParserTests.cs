@@ -1,8 +1,8 @@
 namespace RIA.Grabber.Tests
 {
     using NUnit.Framework;
-    using RIA.Grabber.Model;
-    using RIA.Grabber.Services;
+    using Model;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -16,7 +16,7 @@ namespace RIA.Grabber.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _html = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "1.html"));
+            _html = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "1.html"));
         }
 
         [Test]
