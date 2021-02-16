@@ -3,16 +3,16 @@ using RIA.Grabber;
 
 namespace RIA
 {
-    using RIA.Grabber.Services;
+    using Grabber.Services;
 
     class Program
     {
         public static void Main()
         {
-            var dataDownloader = new DataDownloader();
+            var dataDownloaded = new DataDownloader();
             var htmlParser = new HtmlParser();
             var jsonPageSaver = new JsonPageSaver();
-            var processor = new RiaPageProcessor(dataDownloader, htmlParser, jsonPageSaver);
+            var processor = new RiaPageProcessor(dataDownloaded, htmlParser, jsonPageSaver);
 
             while (true)
             {

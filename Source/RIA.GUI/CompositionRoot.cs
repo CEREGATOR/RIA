@@ -9,10 +9,10 @@ namespace RIA.GUI
 
         public void Initialize()
         {
-            var dataDownloader = new DataDownloader();
+            var dataDownloaded = new DataDownloader();
             var htmlParser = new HtmlParser();
             var jsonPageSaver = new JsonPageSaver();
-            var processor = new RiaPageProcessor(dataDownloader, htmlParser, jsonPageSaver);
+            var processor = new RiaPageProcessor(dataDownloaded, htmlParser, jsonPageSaver);
 
             var converter = new PageModelFromJsonConverter();
             var dirWatcher = new ResultDirectoryWatcher();

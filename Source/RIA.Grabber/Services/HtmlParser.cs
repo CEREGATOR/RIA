@@ -9,7 +9,7 @@
     using HtmlAgilityPack;
     using HtmlAgilityPack.CssSelectors.NetCore;
 
-    using RIA.Grabber.Model;
+    using Model;
 
     /// <summary>
     /// Разбирает модель страницы риа.ру из html кода этой страницы.
@@ -39,10 +39,7 @@
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlCode);
 
-            var model = new PageModel();
-
-            model.Title = GetPageArticle(htmlDoc);
-            model.Text = GetPageText(htmlDoc);
+            var model = new PageModel {Title = GetPageArticle(htmlDoc), Text = GetPageText(htmlDoc)};
 
             var dates = GetPageDates(htmlDoc);
             model.PublicationDate = dates.Item1;
