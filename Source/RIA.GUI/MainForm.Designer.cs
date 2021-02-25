@@ -34,7 +34,7 @@
             this.ButtonParser = new System.Windows.Forms.Button();
             this.Url = new System.Windows.Forms.TextBox();
             this.PathJson = new System.Windows.Forms.TextBox();
-            this.ListJsonFiles = new System.Windows.Forms.ListBox();
+            this.ListPage = new System.Windows.Forms.ListBox();
             this.TextPage = new System.Windows.Forms.RichTextBox();
             this.Title = new System.Windows.Forms.TextBox();
             this.PublicationDate = new System.Windows.Forms.TextBox();
@@ -82,12 +82,12 @@
             this.PathJson.Name = "PathJson";
             this.PathJson.TextChanged += new System.EventHandler(this.PathJson_TextChanged);
             // 
-            // ListJsonFiles
+            // ListPage
             // 
-            this.ListJsonFiles.FormattingEnabled = true;
-            resources.ApplyResources(this.ListJsonFiles, "ListJsonFiles");
-            this.ListJsonFiles.Name = "ListJsonFiles";
-            this.ListJsonFiles.SelectedIndexChanged += new System.EventHandler(this.ListJsonFiles_SelectedIndexChanged);
+            this.ListPage.FormattingEnabled = true;
+            resources.ApplyResources(this.ListPage, "ListPage");
+            this.ListPage.Name = "ListPage";
+            this.ListPage.SelectedIndexChanged += new System.EventHandler(this.ListPage_SelectedIndexChanged);
             // 
             // TextPage
             // 
@@ -196,7 +196,7 @@
             this.Controls.Add(this.PublicationDate);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.TextPage);
-            this.Controls.Add(this.ListJsonFiles);
+            this.Controls.Add(this.ListPage);
             this.Controls.Add(this.PathJson);
             this.Controls.Add(this.Url);
             this.Controls.Add(this.ButtonParser);
@@ -219,7 +219,7 @@
         private System.Windows.Forms.Button ButtonParser;
         private System.Windows.Forms.TextBox Url;
         private System.Windows.Forms.TextBox PathJson;
-        private System.Windows.Forms.ListBox ListJsonFiles;
+        private System.Windows.Forms.ListBox ListPage;
         private System.Windows.Forms.RichTextBox TextPage;
         private System.Windows.Forms.TextBox Title;
         private System.Windows.Forms.TextBox PublicationDate;

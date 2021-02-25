@@ -12,7 +12,9 @@ namespace RIA
             var dataDownloaded = new DataDownloader();
             var htmlParser = new HtmlParser();
             var jsonPageSaver = new JsonPageSaver();
-            var processor = new RiaPageProcessor(dataDownloaded, htmlParser, jsonPageSaver);
+            var dbPageSaver = new DbPageSaver();
+
+            var processor = new RiaPageProcessor(dataDownloaded, htmlParser, jsonPageSaver,dbPageSaver);
 
             while (true)
             {
