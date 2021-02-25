@@ -31,6 +31,11 @@
         private readonly IPageSaver _saver;
 
         /// <summary>
+        /// Интерфейс, предоставляющий метод сохранения модели страницы.
+        /// </summary>
+        private readonly IPageSaverDb _saverDb;
+
+        /// <summary>
         /// Инициализирует статические поля класса <see cref="RiaPageProcessor"/>.
         /// </summary>
         static RiaPageProcessor()
@@ -44,11 +49,13 @@
         /// <param name="downloader">Загрузчик данных из интернета.</param>
         /// <param name="parser">Парсер HTML кода.</param>
         /// <param name="saver">Интерфейс, предоставляющий метод сохранения модели страницы.</param>
-        public RiaPageProcessor(DataDownloader downloader, HtmlParser parser, IPageSaver saver)
+        /// <param name="saverDb">Интерфейс, предоставляющий метод сохранения модели страницы в БД.</param>
+        public RiaPageProcessor(DataDownloader downloader, HtmlParser parser, IPageSaver saver, IPageSaverDb saverDb)
         {
             _downloader = downloader;
             _parser = parser;
             _saver = saver;
+            _saverDb = saverDb;
         }
 
         /// <summary>
@@ -65,6 +72,16 @@
             var pageModel = _parser.ParsePage(htmlCode);
 
             _saver.SavePageModel(pageModel, saveDirPath);
+        }
+        public void ProcessPageDb(string url)
+        {
+            if (!CheckUrlRegex.IsMatch(url))
+                throw new Exception("URL не ведет на новость ria.ru.");
+
+            var htmlCode = _downloader.DownloadPageHtml(url);
+            var pageModel = _parser.ParsePage(htmlCode);
+
+            _saverDb.SavePageModelDb(pageModel);
         }
     }
 }

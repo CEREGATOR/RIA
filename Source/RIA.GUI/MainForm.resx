@@ -101,6 +101,9 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Путь к папке с Json файлами</value>
   </data>
+  <data name="label2.Visible" type="System.Boolean, System.Private.CoreLib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
   </data>
@@ -167,6 +170,9 @@
   <data name="PathJson.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>4</value>
   </data>
+  <data name="PathJson.Visible" type="System.Boolean, System.Private.CoreLib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;PathJson.Name" xml:space="preserve">
     <value>PathJson</value>
   </data>
@@ -179,28 +185,28 @@
   <data name="&gt;&gt;PathJson.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
-  <data name="ListJsonFiles.ItemHeight" type="System.Int32, System.Private.CoreLib">
+  <data name="ListPage.ItemHeight" type="System.Int32, System.Private.CoreLib">
     <value>15</value>
   </data>
-  <data name="ListJsonFiles.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>313, 36</value>
+  <data name="ListPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>305, 36</value>
   </data>
-  <data name="ListJsonFiles.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>448, 169</value>
+  <data name="ListPage.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>456, 169</value>
   </data>
-  <data name="ListJsonFiles.TabIndex" type="System.Int32, System.Private.CoreLib">
-    <value>5</value>
+  <data name="ListPage.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>21</value>
   </data>
-  <data name="&gt;&gt;ListJsonFiles.Name" xml:space="preserve">
-    <value>ListJsonFiles</value>
+  <data name="&gt;&gt;ListPage.Name" xml:space="preserve">
+    <value>ListPage</value>
   </data>
-  <data name="&gt;&gt;ListJsonFiles.Type" xml:space="preserve">
+  <data name="&gt;&gt;ListPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ListJsonFiles.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ListPage.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;ListJsonFiles.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ListPage.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
   <data name="TextPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
