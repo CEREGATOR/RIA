@@ -13,7 +13,8 @@ namespace RIA.Grabber.Services
         private string _pageId;
         public void SavePageModelDb(PageModel pageModel)
         {
-            using (var connection = new SQLiteConnection(@"Data Source=D:\DbFileCreator\ria_db.db"))
+            using (var connection = new SQLiteConnection(
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
             {
                 connection.Open();
 
@@ -30,7 +31,7 @@ namespace RIA.Grabber.Services
                     command.Connection = connection;
                     command.Transaction = transaction;
 
-                    foreach (var textLink in pageModel.LinksInText) 
+                    foreach (var textLink in pageModel.LinksInText)
                     {
                         command.CommandText =
                             $"INSERT INTO [Links] ([PageId], [Link], [TextLink]) VALUES ('{_pageId}' ,'{textLink.Url}', '{textLink.Description}')";
@@ -52,7 +53,8 @@ namespace RIA.Grabber.Services
 
         private void GetPageId(PageModel pageModel)
         {
-            using (var connection = new SQLiteConnection(@"Data Source=D:\DbFileCreator\ria_db.db"))
+            using (var connection = new SQLiteConnection(
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
             {
                 connection.Open();
 
