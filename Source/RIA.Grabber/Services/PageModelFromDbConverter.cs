@@ -14,7 +14,8 @@ namespace RIA.Grabber.Services
         {
             var pageModel = new PageModel();
             GetPageId(pageName);
-            using (var connection = new SQLiteConnection(@"Data Source=D:\DbFileCreator\ria_db.db"))
+            using (var connection = new SQLiteConnection(
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
             {
                 connection.Open();
 
@@ -77,7 +78,8 @@ namespace RIA.Grabber.Services
 
         private void GetPageId(string pageName)
         {
-            using (var connection = new SQLiteConnection(@"Data Source=D:\DbFileCreator\ria_db.db"))
+            using (var connection = new SQLiteConnection(
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
             {
                 connection.Open();
 

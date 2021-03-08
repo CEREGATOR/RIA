@@ -9,4 +9,10 @@
     <ProjectReference Include="..\RIA.Grabber\RIA.Grabber.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ria_db.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

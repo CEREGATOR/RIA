@@ -10,8 +10,9 @@ namespace RIA.Grabber.Services
         public List<string> ListDbUpdate()
         {
             List<string> pageTitleList = new List<string>();
-            
-            using (var connection = new SQLiteConnection(@"Data Source=D:\DbFileCreator\ria_db.db"))
+
+            using (var connection = new SQLiteConnection(
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
             {
                 connection.Open();
 
