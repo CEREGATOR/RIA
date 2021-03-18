@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 
@@ -14,7 +15,7 @@ namespace RIA.Grabber.Services
         public void SavePageModelDb(PageModel pageModel)
         {
             using (var connection = new SQLiteConnection(
-                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(), "ria_db.db")}"))
             {
                 connection.Open();
 
@@ -54,7 +55,7 @@ namespace RIA.Grabber.Services
         private void GetPageId(PageModel pageModel)
         {
             using (var connection = new SQLiteConnection(
-                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(), "ria_db.db")}"))
             {
                 connection.Open();
 

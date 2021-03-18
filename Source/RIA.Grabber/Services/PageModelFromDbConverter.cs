@@ -15,7 +15,7 @@ namespace RIA.Grabber.Services
             var pageModel = new PageModel();
             GetPageId(pageName);
             using (var connection = new SQLiteConnection(
-                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(), "ria_db.db")}"))
             {
                 connection.Open();
 
@@ -32,10 +32,20 @@ namespace RIA.Grabber.Services
 
                             pageModel.Text = reader["Text"].ToString();
 
-                            var publicationDate = DateTime.ParseExact(reader["PublicationDate"].ToString() ?? string.Empty, "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
+                            DateTime? publicationDate = DateTime.ParseExact(reader["PublicationDate"].ToString() ?? throw new InvalidOperationException(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
                             pageModel.PublicationDate = publicationDate;
 
-                            var lastChangeDate = DateTime.ParseExact(reader["ChangeDate"].ToString() ?? string.Empty, "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
+                            DateTime? lastChangeDate;
+
+                            if (string.IsNullOrEmpty(reader["ChangeDate"].ToString()))
+                            {
+                                lastChangeDate = null;
+                            }
+                            else
+                            {
+                                lastChangeDate = DateTime.ParseExact(reader["ChangeDate"].ToString() ?? throw new InvalidOperationException(), "HH:mm dd.MM.yyyy", CultureInfo.InvariantCulture);
+                            }
+
                             pageModel.LastChangeDate = lastChangeDate;
                         }
                     }
@@ -79,7 +89,7 @@ namespace RIA.Grabber.Services
         private void GetPageId(string pageName)
         {
             using (var connection = new SQLiteConnection(
-                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(), "ria_db.db")}"))
             {
                 connection.Open();
 

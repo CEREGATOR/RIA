@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace RIA.Grabber.Services
             List<string> pageTitleList = new List<string>();
 
             using (var connection = new SQLiteConnection(
-                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty, "ria_db.db")}"))
+                $"Data Source ={Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException(), "ria_db.db")}"))
             {
                 connection.Open();
 
