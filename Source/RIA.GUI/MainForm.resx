@@ -185,28 +185,28 @@
   <data name="&gt;&gt;PathJson.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
-  <data name="ListPage.ItemHeight" type="System.Int32, System.Private.CoreLib">
+  <data name="PageList.ItemHeight" type="System.Int32, System.Private.CoreLib">
     <value>15</value>
   </data>
-  <data name="ListPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+  <data name="PageList.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>305, 36</value>
   </data>
-  <data name="ListPage.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+  <data name="PageList.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>456, 169</value>
   </data>
-  <data name="ListPage.TabIndex" type="System.Int32, System.Private.CoreLib">
+  <data name="PageList.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>21</value>
   </data>
-  <data name="&gt;&gt;ListPage.Name" xml:space="preserve">
-    <value>ListPage</value>
+  <data name="&gt;&gt;PageList.Name" xml:space="preserve">
+    <value>PageList</value>
   </data>
-  <data name="&gt;&gt;ListPage.Type" xml:space="preserve">
+  <data name="&gt;&gt;PageList.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ListPage.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PageList.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;ListPage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PageList.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
   <data name="TextPage.Location" type="System.Drawing.Point, System.Drawing.Primitives">

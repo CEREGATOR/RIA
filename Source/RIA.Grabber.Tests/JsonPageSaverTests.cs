@@ -8,6 +8,8 @@
 
     using Moq;
 
+    using RIA.Grabber.Services.PageSaver;
+
     using JsonSerializer = System.Text.Json.JsonSerializer;
 
     [TestFixture]
@@ -40,8 +42,9 @@
             var json = jsonMock.Object;
 
             var dirPath = "C:\\";
+            json.Initialize(dirPath);
             var filePath = $"{dirPath}{expectedModel.Title}.json";
-            json.SavePageModel(expectedModel, dirPath);
+            json.SavePageModel(expectedModel);
 
             jsonMock.Verify(saver => saver.CreateDirIfNotExists(dirPath), Times.Once);
             jsonMock.Verify(saver => saver.WriteFileContent(filePath, It.IsAny<string>()), Times.Once);
