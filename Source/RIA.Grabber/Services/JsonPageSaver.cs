@@ -5,10 +5,10 @@
     using System.Text;
     using System.Text.Json;
 
-    using RIA.Grabber.Model;
+    using Model;
 
     /// <summary>
-    /// Класс по сохранинию стриницы ria в Json файл.
+    /// Класс по сохранению страницы ria в Json файл.
     /// </summary>
     public class JsonPageSaver : IPageSaver
     {
@@ -63,7 +63,7 @@
         }
 
         /// <summary>
-        /// Очистка строки (пути дериктории или названия файла) от недопустимых символов.
+        /// Очистка строки (пути директории или названия файла) от недопустимых символов.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="invalidChars"></param>

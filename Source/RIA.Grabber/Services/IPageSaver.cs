@@ -1,6 +1,6 @@
 ﻿namespace RIA.Grabber.Services
 {
-    using RIA.Grabber.Model;
+    using Model;
 
     /// <summary>
     /// Интерфейс, предоставляющий методы сохранения модели страницы риа.
@@ -8,7 +8,7 @@
     public interface IPageSaver
     {
         /// <summary>
-        /// Cохрание модели страницы.
+        /// Сохранение модели страницы.
         /// </summary>
         /// <param name="pageModel"></param>
         /// <param name="dirPath"></param>
