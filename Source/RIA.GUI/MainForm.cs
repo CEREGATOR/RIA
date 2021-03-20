@@ -5,51 +5,76 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Reflection;
 using RIA.Grabber;
-using RIA.Grabber.Services;
 
 namespace RIA.GUI
 {
+    using RIA.Grabber.Services.ModelConverter;
+    using RIA.Grabber.Services.ResultWatcher;
+
+    /// <summary>
+    /// Элемент управления главной формы приложения. 
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Список изображений выводимых в форму приложения.
+        /// </summary>
         private readonly List<Image> _listImage = new List<Image>();
 
-        private ResultDirectoryWatcher _dirWatcher = new ResultDirectoryWatcher();
-        private ResultDbWatcher _dbWatcher = new ResultDbWatcher();
-        private PageModelFromJsonConverter _converter = new PageModelFromJsonConverter();
-        private PageModelFromDbConverter _converterDb = new PageModelFromDbConverter();
+        /// <summary>
+        /// Интерфейс, предоставляющий список названий страниц. 
+        /// </summary>
+        private IResultWatcher _watcher;
+        /// <summary>
+        /// Интерфейс, позволяющий считывать хранимые страницы. 
+        /// </summary>
+        private IPageModelReader _reader;
+        /// <summary>
+        /// Обеспечивает сбор новости с риа ру. 
+        /// </summary>
         private RiaPageProcessor _processor;
 
-        internal void InjectDependencies(RiaPageProcessor processor, PageModelFromJsonConverter converter, ResultDirectoryWatcher dirWatcher, ResultDbWatcher dbWatcher, PageModelFromDbConverter converterDb)
-        {
-            _processor = processor;
-            _converter = converter;
-            _converterDb = converterDb;
-            _dirWatcher = dirWatcher;
-            _dbWatcher = dbWatcher;
-        }
-
+        /// <summary>
+        /// Номер текущей открытой картинки в форме приложения.
+        /// </summary>
         private int _numberPictures;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр класса.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
-            AddPageFromDbInListPage();
             CleaningWorkArea();
         }
 
+        /// <summary>
+        /// Внедряет зависимости для работы главной формы приложения.
+        /// </summary>
+        /// <param name="processor">Обеспечивает сбор новости с риа ру.</param>
+        /// <param name="reader">Интерфейс, позволяющий считывать хранимые страницы.</param>
+        /// <param name="watcher">Интерфейс, предоставляющий список названий страниц.</param>
+        internal void InjectDependencies(RiaPageProcessor processor, IPageModelReader reader, IResultWatcher watcher)
+        {
+            _processor = processor;
+            _reader = reader;
+            _watcher = watcher;
+            
+            FillPageList();
+        }
+
+        /// <summary>
+        /// Обрабатывает нажатие кнопки "Старт".
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ButtonParser_Click(object sender, EventArgs e)
         {
             try
             {
                 CleaningWorkArea();
-                _processor.ProcessPageDb(Url.Text);
-                AddPageFromDbInListPage();
-                //AddFileInListPage();
-
-            }
-            catch(DirectoryNotFoundException)
-            {
-                TextPage.Text = @"В папке нет json файлов";
+                _processor.ProcessPage(Url.Text);
+                FillPageList();
             }
             catch (Exception ex)
             {
@@ -57,36 +82,64 @@ namespace RIA.GUI
             }
         }
 
+        /// <summary>
+        /// Обрабатывает выбранный элемент из списка страниц.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ListPage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ListPage.SelectedItem != null)
-            {
-                //ViewJsonFiles();
-                ViewPageDb();
-            }
+            if (PageList.SelectedItem == null)
+                return;
+
+            ShowPage();
         }
 
+        /// <summary>
+        /// !!!НЕ ИСПОЛЬЗУЕТСЯ (Обрабатывает событие изменения "путь к папке с json файлами").
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void PathJson_TextChanged(object sender, EventArgs e)
         {
-            CleaningWorkArea();
-            AddFileInListPage();
+            throw new NotSupportedException("Этот функционал выпиливается.");
         }
 
+        /// <summary>
+        /// Обрабатывает событие изменения url страницы ria.ru.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void Url_TextChanged(object sender, EventArgs e)
         {
             CleaningWorkArea();
         }
 
+        /// <summary>
+        /// Обрабатывает выбранный элемент ссылок из страницы ria.ru.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void UrlList_SelectedIndexChanged(object sender, EventArgs e)
         {
             UrlList.ClearSelected();
         }
 
+        /// <summary>
+        /// Обрабатывает выбранный элемент текста ссылки из страницы ria.ru.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void DescriptionList_SelectedIndexChanged(object sender, EventArgs e)
         {
             DescriptionList.ClearSelected();
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки "Следующая картинка".
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ButtonNextPicture_Click(object sender, EventArgs e)
         {
             ButtonPreviousPicture.Enabled = true;
@@ -100,6 +153,11 @@ namespace RIA.GUI
                 ButtonNextPicture.Enabled = false;
         }
 
+        /// <summary>
+        /// Обрабатывает нажатие кнопки "Предыдущая картинка".
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void ButtonPreviousPicture_Click(object sender, EventArgs e)
         {
             ButtonNextPicture.Enabled = true;
@@ -113,10 +171,13 @@ namespace RIA.GUI
                 ButtonPreviousPicture.Enabled = false;
         }
 
-        private void ViewPageDb()
+        /// <summary>
+        /// Показывает стрицу ria.ru в форме приложения.
+        /// </summary>
+        private void ShowPage()
         {
-            var pageName = ListPage.GetItemText(ListPage.SelectedItem);
-            var pageModel = _converterDb.PageModelDb(pageName);
+            var pageName = PageList.GetItemText(PageList.SelectedItem);
+            var pageModel = _reader.GetPage(pageName);
             try
             {
                 CleaningWorkArea();
@@ -166,84 +227,18 @@ namespace RIA.GUI
             }
         }
 
-        private void ViewJsonFiles()
+        /// <summary>
+        /// Добавляет название статей в список статей в форму приложения.
+        /// </summary>
+        private void FillPageList()
         {
-            var filename = ListPage.GetItemText(ListPage.SelectedItem);
-            var pageModel = _converter.PageModelJson(filename, PathJson.Text);
+            PageList.Items.Clear();
             try
             {
-                CleaningWorkArea();
-
-                Title.AppendText(pageModel.Title);
-                PublicationDate.AppendText(pageModel.PublicationDate.ToString());
-                LastChangeDate.AppendText(pageModel.LastChangeDate.ToString());
-                TextPage.AppendText(pageModel.Text + Environment.NewLine);
-
-                foreach (var textLink in pageModel.LinksInText)
-                {
-                    UrlList.Items.Add(textLink.Url);
-                    DescriptionList.Items.Add(textLink.Description);
-                }
-
-                foreach (var imgBase64 in pageModel.ImagesInBase64)
-                {
-                    var byteArray = Convert.FromBase64String(imgBase64);
-                    var memoryStream = new MemoryStream(byteArray);
-                    var newImage = Image.FromStream(memoryStream);
-                    _listImage.Add(newImage);
-                }
-
-                if (_listImage.Count > 1)
-                {
-                    ButtonNextPicture.Enabled = true;
-                    ButtonPreviousPicture.Enabled = false;
-
-                    _numberPictures = 0;
-                    ImageInPage.Image = _listImage[_numberPictures];
-                }
-                else if (_listImage.Count == 1)
-                {
-                    _numberPictures = 0;
-                    ImageInPage.Image = _listImage[_numberPictures];
-                }
-                else
-                {
-                    var currentDirPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    ImageInPage.Image =
-                        Image.FromFile(Path.Combine(currentDirPath ?? string.Empty, "No images in page.png"));
-                }
-            }
-            catch (Exception ex)
-            {
-                TextPage.Text = ex.Message;
-            }
-        }
-
-        private void AddFileInListPage()
-        {
-            ListPage.Items.Clear();
-            try
-            {
-                var fileNameArray = _dirWatcher.ListJsonFilesUpdate(PathJson.Text);
-                foreach (var fi in fileNameArray)
-                {
-                    ListPage.Items.Add(fi);
-                }
-            }
-            catch (DirectoryNotFoundException)
-            {
-                TextPage.Text = @"В папке нет json файлов";
-            }
-        }
-        private void AddPageFromDbInListPage()
-        {
-            ListPage.Items.Clear();
-            try
-            {
-                var pageTitle = _dbWatcher.ListDbUpdate();
+                var pageTitle = _watcher.GetPagesList();
                 foreach (var pg in pageTitle)
                 {
-                    ListPage.Items.Add(pg);
+                    PageList.Items.Add(pg);
                 }
             }
             catch (Exception ex)
@@ -252,6 +247,9 @@ namespace RIA.GUI
             }
         }
 
+        /// <summary>
+        /// Очищает информацию во всех полях в форме приложения.
+        /// </summary>
         private void CleaningWorkArea()
         {
             ImageInPage.Image = null;

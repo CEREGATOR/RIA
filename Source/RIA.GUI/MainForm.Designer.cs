@@ -34,7 +34,7 @@
             this.ButtonParser = new System.Windows.Forms.Button();
             this.Url = new System.Windows.Forms.TextBox();
             this.PathJson = new System.Windows.Forms.TextBox();
-            this.ListPage = new System.Windows.Forms.ListBox();
+            this.PageList = new System.Windows.Forms.ListBox();
             this.TextPage = new System.Windows.Forms.RichTextBox();
             this.Title = new System.Windows.Forms.TextBox();
             this.PublicationDate = new System.Windows.Forms.TextBox();
@@ -84,10 +84,10 @@
             // 
             // ListPage
             // 
-            this.ListPage.FormattingEnabled = true;
-            resources.ApplyResources(this.ListPage, "ListPage");
-            this.ListPage.Name = "ListPage";
-            this.ListPage.SelectedIndexChanged += new System.EventHandler(this.ListPage_SelectedIndexChanged);
+            this.PageList.FormattingEnabled = true;
+            resources.ApplyResources(this.PageList, "PageList");
+            this.PageList.Name = "PageList";
+            this.PageList.SelectedIndexChanged += new System.EventHandler(this.ListPage_SelectedIndexChanged);
             // 
             // TextPage
             // 
@@ -196,7 +196,7 @@
             this.Controls.Add(this.PublicationDate);
             this.Controls.Add(this.Title);
             this.Controls.Add(this.TextPage);
-            this.Controls.Add(this.ListPage);
+            this.Controls.Add(this.PageList);
             this.Controls.Add(this.PathJson);
             this.Controls.Add(this.Url);
             this.Controls.Add(this.ButtonParser);
@@ -219,7 +219,7 @@
         private System.Windows.Forms.Button ButtonParser;
         private System.Windows.Forms.TextBox Url;
         private System.Windows.Forms.TextBox PathJson;
-        private System.Windows.Forms.ListBox ListPage;
+        private System.Windows.Forms.ListBox PageList;
         private System.Windows.Forms.RichTextBox TextPage;
         private System.Windows.Forms.TextBox Title;
         private System.Windows.Forms.TextBox PublicationDate;
